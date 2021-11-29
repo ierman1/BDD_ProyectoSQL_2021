@@ -1,0 +1,2 @@
+DROP DATABASE not_dnd_char_creator;
+CREATE DATABASE not_dnd_char_creator;
