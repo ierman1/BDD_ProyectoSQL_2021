@@ -1,5 +1,5 @@
 CREATE TABLE personajes (
-	id NUMERIC,
+	id BIGSERIAL,
 	id_clase NUMERIC NOT NULL,
 	id_raza NUMERIC NOT NULL,
 	
@@ -26,7 +26,7 @@ CREATE TABLE personajes (
 );
 
 CREATE TABLE clases (
-	id NUMERIC,
+	id BIGSERIAL,
 	id_clase_padre NUMERIC,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
@@ -38,7 +38,7 @@ CREATE TABLE clases (
 );
 
 CREATE TABLE razas (
-	id NUMERIC,
+	id BIGSERIAL,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	velocidad_a_pie NUMERIC NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE razas (
 );
 
 CREATE TABLE hechizos (
-	id NUMERIC,
+	id BIGSERIAL,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	rango NUMERIC,
@@ -65,7 +65,7 @@ CREATE TABLE hechizos (
 );
 
 CREATE TABLE objetos (
-	id NUMERIC,
+	id BIGSERIAL,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	peso NUMERIC,
