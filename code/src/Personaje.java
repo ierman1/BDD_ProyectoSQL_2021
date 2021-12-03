@@ -6,6 +6,7 @@ import java.util.List;
 public class Personaje {
 
     private static String TABLE_NAME = "personajes";
+    private static List<Personaje> LIST;
 
     private int id;
     private int idClase;
@@ -36,17 +37,48 @@ public class Personaje {
 
     public static List<Personaje> get() {
         ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
-        ArrayList<Personaje> result = new ArrayList<>();
+        List<Personaje> result = new ArrayList<>();
 
         try {
             while(rs.next()){
-                result.add(new Personaje(rs.getInt("id"), rs.getString("nombre"), rs.getInt("nivel")));
+                result.add(new Personaje(
+                        rs.getInt("id"),
+                        rs.getInt("id_clase"),
+                        rs.getInt("id_raza"),
+                        rs.getString("nombre"),
+                        rs.getInt("nivel"),
+                        rs.getBoolean("esta_inspirado"),
+                        rs.getString("trasfondo"),
+                        rs.getInt("edad"),
+                        rs.getInt("altura"),
+                        rs.getInt("peso"),
+                        rs.getInt("vida_max"),
+                        rs.getInt("vida_actual"),
+                        rs.getInt("oro"),
+                        rs.getInt("fuerza"),
+                        rs.getInt("destreza"),
+                        rs.getInt("constitucion"),
+                        rs.getInt("inteligencia"),
+                        rs.getInt("sabiduria"),
+                        rs.getInt("carisma")));
             }
         } catch (SQLException e) {
 
         }
 
         return result;
+    }
+
+    public static List<Personaje> getList() {
+        Personaje.LIST = Personaje.get();
+        return Personaje.LIST;
+    }
+
+    public static List<Personaje> getList(boolean refresh) {
+        if (Personaje.LIST == null || refresh)
+            return Personaje.getList();
+
+        return Personaje.LIST;
     }
 
     public Personaje find(int id) {

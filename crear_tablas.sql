@@ -27,7 +27,6 @@ CREATE TABLE personajes (
 
 CREATE TABLE clases (
 	id BIGSERIAL,
-	id_clase_padre NUMERIC,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	dado_vida NUMERIC NOT NULL,
@@ -39,6 +38,7 @@ CREATE TABLE clases (
 
 CREATE TABLE razas (
 	id BIGSERIAL,
+	id_raza_padre NUMERIC,
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	velocidad_a_pie NUMERIC NOT NULL,
@@ -137,3 +137,5 @@ CREATE TABLE hechizos_raza (
 	
 	CONSTRAINT hechizos_raza_pk PRIMARY KEY (id_raza, id_hechizo)
 );
+
+CREATE TYPE habilidades AS ENUM ('Acrobaticas', 'Trato con animales', 'Arcana', 'Atletismo', 'Deception', 'History');
