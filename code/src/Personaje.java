@@ -16,6 +16,7 @@ public class Personaje {
     private int nivel;
     private boolean estaInspirado;
     private String trasfondo;
+    private int edad;
     private int altura;
     private int peso;
     private int vida_max;
@@ -29,13 +30,28 @@ public class Personaje {
     private int sabiduria;
     private int carisma;
 
-    public Personaje(int id, String nombre, int nivel) {
+    public Personaje(int id, int idClase, int idRaza, String nombre, int nivel, boolean estaInspirado, String trasfondo, int edad, int altura, int peso, int vida_max, int vida_actual, int oro, int fuerza, int destreza, int constitucion, int inteligencia, int sabiduria, int carisma) {
         this.id = id;
+        this.idClase = idClase;
+        this.idRaza = idRaza;
         this.nombre = nombre;
         this.nivel = nivel;
+        this.estaInspirado = estaInspirado;
+        this.trasfondo = trasfondo;
+        this.altura = altura;
+        this.peso = peso;
+        this.vida_max = vida_max;
+        this.vida_actual = vida_actual;
+        this.oro = oro;
+        this.fuerza = fuerza;
+        this.destreza = destreza;
+        this.constitucion = constitucion;
+        this.inteligencia = inteligencia;
+        this.sabiduria = sabiduria;
+        this.carisma = carisma;
     }
 
-    public static List<Personaje> get() {
+    private static List<Personaje> get() {
         ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
         List<Personaje> result = new ArrayList<>();
 
