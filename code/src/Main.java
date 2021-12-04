@@ -28,7 +28,7 @@ public class Main {
         if (pj != null) System.out.println(pj.getClase().toString());
         if (pj != null) System.out.println(pj.getRaza().toString());
 
-        Controller.ListaPersonajes();
+        Controller.initialize();
 
     }
 
