@@ -1,6 +1,3 @@
-CREATE TYPE estadisticas AS ENUM ('Fuerza', 'Destreza', 'Constitucion', 'Inteligencia', 'Sabiduria', 'Carisma')
-CREATE TYPE habilidades AS ENUM ('Acrobaticas', 'Trato con animales', 'Arcana', 'Atletismo', 'Decepcion', 'Historia', 'Conocimiento', 'Intimidacion', 'Medicina', 'Naturaleza', 'Percepcion', 'Actuacion', 'Persuasion', 'Religion', 'Juego de manos', 'Sigilo', 'Supervivencia');
-
 CREATE TABLE personajes (
 	id BIGSERIAL,
 	id_clase NUMERIC NOT NULL,
@@ -34,8 +31,8 @@ CREATE TABLE clases (
 	nombre VARCHAR(255) NOT NULL,
 	descripcion TEXT,
 	dado_vida NUMERIC NOT NULL,
-	salvacion_1 estadisticas NOT NULL,
-	salvacion_2 estadisticas,
+	salvacion_1 NUMERIC NOT NULL,
+	salvacion_2 NUMERIC,
 	
 	CONSTRAINT clases_pk PRIMARY KEY (id)
 );

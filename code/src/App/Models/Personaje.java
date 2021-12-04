@@ -1,3 +1,7 @@
+package App.Models;
+
+import App.Connector;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,6 +34,9 @@ public class Personaje {
     private int sabiduria;
     private int carisma;
 
+    private Clase clase;
+    private Raza raza;
+
     public Personaje(int id, int idClase, int idRaza, String nombre, int nivel, boolean estaInspirado, String trasfondo, int edad, int altura, int peso, int vida_max, int vida_actual, int oro, int fuerza, int destreza, int constitucion, int inteligencia, int sabiduria, int carisma) {
         this.id = id;
         this.idClase = idClase;
@@ -49,6 +56,20 @@ public class Personaje {
         this.inteligencia = inteligencia;
         this.sabiduria = sabiduria;
         this.carisma = carisma;
+    }
+
+    public Clase getClase() {
+        if (this.clase == null)
+            this.clase = Clase.find(this.idClase);
+
+        return this.clase;
+    }
+
+    public Raza getRaza() {
+        if (this.raza == null)
+            this.raza = Raza.find(this.idRaza);
+
+        return this.raza;
     }
 
     private static List<Personaje> get() {
@@ -97,16 +118,20 @@ public class Personaje {
         return Personaje.LIST;
     }
 
-    public Personaje find(int id) {
-        return null;
+    public static Personaje find(int id) {
+        Personaje result;
+
+        try {
+            result = (Personaje) Personaje.getList().stream().filter(personaje -> personaje.id == id).toArray()[0];
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            return null;
+        }
+
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Personaje{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                '}';
+        return this.nombre;
     }
 }
