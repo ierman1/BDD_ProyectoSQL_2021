@@ -1,10 +1,7 @@
 package App;
 
 import App.Models.Personaje;
-import App.Views.CrearPersonaje;
-import App.Views.ListaPersonajes;
-import App.Views.InfoPersonaje;
-import App.Views.View;
+import App.Views.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -50,4 +47,7 @@ public class AppController {
         AppController.app.swapWindow(new CrearPersonaje(AppController.app.appFrame));
     }
 
+    public static void crearPersonajeFase2() {
+        AppController.app.swapWindow(new CrearPersonajeFase2(AppController.app.appFrame));
+    }
 }

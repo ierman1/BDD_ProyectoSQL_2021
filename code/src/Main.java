@@ -30,7 +30,6 @@ public class Main {
 
         AppController.start();
         AppController.listaPersonajes();
-
     }
 
 }

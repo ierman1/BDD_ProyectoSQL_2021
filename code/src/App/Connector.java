@@ -5,8 +5,8 @@ import java.sql.*;
 public class Connector {
 
     private static String URL = "jdbc:postgresql://127.0.0.1:5432/not_dnd_char_creator";
-    private static String USER = "root";
-    private static String PWD = "123";
+    private static String USER = "udl";
+    private static String PWD = "udl";
 
     public static Connection getConnection() {
         Connection conn = null;
