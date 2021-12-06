@@ -1,4 +1,4 @@
-import App.Controller;
+import App.AppController;
 import App.Models.Clase;
 import App.Models.Personaje;
 import App.Models.Raza;
@@ -28,7 +28,8 @@ public class Main {
         if (pj != null) System.out.println(pj.getClase().toString());
         if (pj != null) System.out.println(pj.getRaza().toString());
 
-        Controller.initialize();
+        AppController.start();
+        AppController.listaPersonajes();
 
     }
 

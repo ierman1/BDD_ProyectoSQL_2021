@@ -58,6 +58,83 @@ public class Personaje {
         this.carisma = carisma;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public int getIdClase() {
+        return idClase;
+    }
+
+    public int getIdRaza() {
+        return idRaza;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public boolean isEstaInspirado() {
+        return estaInspirado;
+    }
+
+    public String getTrasfondo() {
+        return trasfondo;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public int getVida_max() {
+        return vida_max;
+    }
+
+    public int getVida_actual() {
+        return vida_actual;
+    }
+
+    public int getOro() {
+        return oro;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public int getDestreza() {
+        return destreza;
+    }
+
+    public int getConstitucion() {
+        return constitucion;
+    }
+
+    public int getInteligencia() {
+        return inteligencia;
+    }
+
+    public int getSabiduria() {
+        return sabiduria;
+    }
+
+    public int getCarisma() {
+        return carisma;
+    }
+
+    // Relaciones
     public Clase getClase() {
         if (this.clase == null)
             this.clase = Clase.find(this.idClase);

@@ -1,6 +1,6 @@
 package App.Views;
 
-import App.Controller;
+import App.AppController;
 import App.Models.Personaje;
 
 import javax.swing.*;
@@ -9,8 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ListaPersonajes extends View {
-
-    private Personaje personajeSel;
 
     public ListaPersonajes(JFrame frame) {
         super(frame, "Lista de personajes");
@@ -50,9 +48,11 @@ public class ListaPersonajes extends View {
             public void mouseClicked(MouseEvent evt) {
                 JList list = (JList)evt.getSource();
                 if (evt.getClickCount() == 2)
-                    Controller.InfoPersonaje();
+                    AppController.infoPersonaje((Personaje) list.getSelectedValue());
             }
         });
+
+        botonCrear.addActionListener(e -> AppController.crearPersonaje());
 
         return this.panel;
     }

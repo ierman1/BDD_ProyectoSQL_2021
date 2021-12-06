@@ -5,14 +5,13 @@ import App.Models.Personaje;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class InfoPersonaje extends View {
+public class CrearPersonaje extends View {
 
-    private Personaje personaje;
-
-    public InfoPersonaje(JFrame frame, Personaje personaje) {
-        super(frame, personaje.getNombre());
-        this.personaje = personaje;
+    public CrearPersonaje(JFrame frame) {
+        super(frame, "Crear personaje");
     }
 
     public JPanel render() {
