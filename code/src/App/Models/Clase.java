@@ -49,6 +49,7 @@ public class Clase {
 
         return result;
     }
+    
 
     public static List<Clase> getList() {
         Clase.LIST = Clase.get();
@@ -74,6 +75,10 @@ public class Clase {
         return result;
     }
 
+    public String getNombre() {
+    	return this.nombre;
+    }
+    
     @Override
     public String toString() {
         return "App.Models.Clase{" +

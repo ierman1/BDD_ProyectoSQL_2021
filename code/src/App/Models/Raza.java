@@ -73,6 +73,10 @@ public class Raza {
         return Raza.LIST;
     }
 
+    public String getNombre() {
+    	return this.nombre;
+    }
+    
     public static Raza find(int id) {
         Raza result;
 
