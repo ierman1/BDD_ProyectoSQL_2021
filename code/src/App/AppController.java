@@ -16,6 +16,7 @@ public class AppController {
     private AppController() {
         this.appFrame = new JFrame();
         this.appFrame.setSize(500, 400);
+        this.appFrame.setResizable(false);
         this.appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.appFrame.setVisible(true);
     }
