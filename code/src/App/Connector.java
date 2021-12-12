@@ -1,12 +1,15 @@
 package App;
 
 import java.sql.*;
+import org.postgresql.util.PSQLException;
 
 public class Connector {
 
     private static String URL = "jdbc:postgresql://127.0.0.1:5432/not_dnd_char_creator";
-    private static String USER = "udl";
-    private static String PWD = "udl";
+    //private static String USER = "postgresql";
+    //private static String PWD = "";
+    private static String USER = "alumne";
+    private static String PWD = "alumne";
 
     public static Connection getConnection() {
         Connection conn = null;
@@ -29,10 +32,21 @@ public class Connector {
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
 
         return rs;
+    }
+    public static void executeUpdate(String query) {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PWD);
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            if(!(e instanceof PSQLException)){
+                e.printStackTrace();
+            }
+        }
     }
 
 }

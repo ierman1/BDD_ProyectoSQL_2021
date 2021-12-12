@@ -246,11 +246,7 @@ public class Personaje {
                 " sabiduria='"+this.sabiduria+"', " +
                 " carisma= '"+this.carisma+"'" +
                 " WHERE id = '"+this.id+"';";
-        try{
-            ResultSet rs = Connector.executeQuery(SQL);
-        }catch (Exception e){
-
-        }
+            Connector.executeUpdate(SQL);
 
     }
 
