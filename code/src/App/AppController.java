@@ -4,8 +4,7 @@ import App.Models.Personaje;
 import App.Views.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+
 
 public class AppController {
 
@@ -15,7 +14,7 @@ public class AppController {
 
     private AppController() {
         this.appFrame = new JFrame();
-        this.appFrame.setSize(500, 400);
+        this.appFrame.setSize(800, 400);
         this.appFrame.setResizable(false);
         this.appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.appFrame.setVisible(true);
