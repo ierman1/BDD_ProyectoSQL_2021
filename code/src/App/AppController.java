@@ -42,6 +42,11 @@ public class AppController {
     public static void infoPersonaje(Personaje personaje) {
         AppController.app.swapWindow(new InfoPersonaje(AppController.app.appFrame, personaje));
     }
+/*
+    public static void inventarioPersonaje(Personaje personaje) {
+        AppController.app.swapWindow(new InfoPersonaje(AppController.app.appFrame, personaje));
+    }*/
+
 
     public static void crearPersonaje() {
         AppController.app.swapWindow(new CrearPersonaje(AppController.app.appFrame));
