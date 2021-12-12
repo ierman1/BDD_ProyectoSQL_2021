@@ -2,6 +2,8 @@ package App.Models;
 
 import App.Connector;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ public class Personaje {
     private static List<Personaje> LIST;
 
     private int id;
+
+
+
     private int idClase;
     private int idRaza;
 
@@ -147,6 +152,105 @@ public class Personaje {
             this.raza = Raza.find(this.idRaza);
 
         return this.raza;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setEstaInspirado(boolean estaInspirado) {
+        this.estaInspirado = estaInspirado;
+    }
+
+    public void setTrasfondo(String trasfondo) {
+        this.trasfondo = trasfondo;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public void setVida_max(int vida_max) {
+        this.vida_max = vida_max;
+    }
+
+    public void setVida_actual(int vida_actual) {
+        this.vida_actual = vida_actual;
+    }
+
+    public void setOro(int oro) {
+        this.oro = oro;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
+    }
+
+    public void setDestreza(int destreza) {
+        this.destreza = destreza;
+    }
+
+    public void setConstitucion(int constitucion) {
+        this.constitucion = constitucion;
+    }
+
+    public void setInteligencia(int inteligencia) {
+        this.inteligencia = inteligencia;
+    }
+
+    public void setSabiduria(int sabiduria) {
+        this.sabiduria = sabiduria;
+    }
+
+    public void setCarisma(int carisma) {
+        this.carisma = carisma;
+    }
+
+    public void setClase(Clase clase) {
+        this.clase = clase;
+    }
+
+    public void setRaza(Raza raza) {
+        this.raza = raza;
+    }
+    public void updatePersonaje(){
+        String SQL = "UPDATE " +TABLE_NAME+
+                " SET "+
+                " nombre= '"+this.nombre +"', "+
+                " nivel= '"+this.nivel+"', " +
+                " esta_inspirado= '"+this.estaInspirado+"', " +
+                " trasfondo= '"+this.trasfondo+"', " +
+                " edad= '"+this.edad+"', " +
+                " altura= '"+this.altura+"', " +
+                " peso= '"+this.peso+"', " +
+                " vida_max= '"+this.vida_max+"', " +
+                " vida_actual= '"+this.vida_actual+"', " +
+                " oro= '"+this.oro+"', " +
+                " fuerza='"+this.fuerza+"', " +
+                " destreza='"+this.destreza+"', " +
+                " constitucion='"+this.constitucion+"', " +
+                " inteligencia='"+this.inteligencia+"', " +
+                " sabiduria='"+this.sabiduria+"', " +
+                " carisma= '"+this.carisma+"'" +
+                " WHERE id = '"+this.id+"';";
+        try{
+            ResultSet rs = Connector.executeQuery(SQL);
+        }catch (Exception e){
+
+        }
+
     }
 
     private static List<Personaje> get() {

@@ -5,6 +5,8 @@ import App.Models.Personaje;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class InfoPersonaje extends View {
@@ -30,6 +32,9 @@ public class InfoPersonaje extends View {
 	public JPanel render() {
 		/**/
 		JButton botonVolver = new JButton("Volver");
+		JButton botonInventario = new JButton("Inventario");
+		JButton botonHechizos = new JButton("Hechizos");
+		JButton botonGuardar = new JButton("Guardar");
 
 		// crear stats
 		ArrayList<String> stats = new ArrayList();
@@ -64,16 +69,43 @@ public class InfoPersonaje extends View {
 		lista.setVisibleRowCount(-1);
 		scrollLista.setViewportView(lista);
 		scrollLista.setMinimumSize(new Dimension(100, 200));
-
 		// Mostrar el contenido
 		this.panel.add(splitPane, BorderLayout.CENTER);
-		this.panel.add(botonVolver, BorderLayout.PAGE_END);
+
+		JPanel panelButtons = new JPanel();
+		panelButtons.setLayout(new FlowLayout());
+		panelButtons.add(botonVolver);
+		panelButtons.add(botonInventario);
+		panelButtons.add(botonHechizos);
+		panelButtons.add(botonGuardar);
+		this.panel.add(panelButtons, BorderLayout.PAGE_END);
 
 		// Eventos
 		botonVolver.addActionListener(e -> AppController.listaPersonajes());
-		/**/
+		botonInventario.addActionListener(e -> AppController.listaPersonajes());
+		botonHechizos.addActionListener(e -> AppController.listaPersonajes());
+		botonGuardar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+
+				personaje.setEdad(Integer.parseInt(textFieldEdad.getText()));
+				personaje.setPeso(Integer.parseInt(textFieldPeso.getText()));
+				personaje.setEstaInspirado(inspiradoCheckBox.isSelected());
+				personaje.setAltura(Integer.parseInt(textFieldAltura.getText()));
+				personaje.setOro(Integer.parseInt(textFieldOro.getText()));
+				personaje.setVida_max(Integer.parseInt(textFieldVidaMax.getText()));
+				personaje.setVida_actual(Integer.parseInt(textFieldVidaAct.getText()));
+				personaje.setTrasfondo(textAreaTrasfondo.getText());
+				personaje.updatePersonaje();
+			}
+		});
+
+		// generar UI
 		$$$setupUI$$$(panelOpciones);
-		/**/
+		// Informar campos UI
+		textClase.setEditable(false);
+		textFieldRaza.setEditable(false);
 		textClase.setText(personaje.getClase().getNombre());
 		textFieldEdad.setText(personaje.getEdad()+"");
 		textFieldPeso.setText(personaje.getPeso()+"");
