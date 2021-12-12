@@ -87,8 +87,6 @@ public class InfoPersonaje extends View {
 		botonGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
 				personaje.setEdad(Integer.parseInt(textFieldEdad.getText()));
 				personaje.setPeso(Integer.parseInt(textFieldPeso.getText()));
 				personaje.setEstaInspirado(inspiradoCheckBox.isSelected());
@@ -107,6 +105,7 @@ public class InfoPersonaje extends View {
 		textClase.setEditable(false);
 		textFieldRaza.setEditable(false);
 		textClase.setText(personaje.getClase().getNombre());
+		System.out.println(personaje.getEdad());
 		textFieldEdad.setText(personaje.getEdad()+"");
 		textFieldPeso.setText(personaje.getPeso()+"");
 		textFieldRaza.setText(personaje.getRaza().getNombre());
@@ -175,6 +174,12 @@ public class InfoPersonaje extends View {
 		inspiradoCheckBox.setText("Inspirado");
 		panel2.add(inspiradoCheckBox, new com.intellij.uiDesigner.core.GridConstraints(4, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 		textAreaTrasfondo = new JTextArea();
+		Dimension maxArea = new Dimension(250, 100);
+		textAreaTrasfondo.setPreferredSize(maxArea);
+		textAreaTrasfondo.setMaximumSize(maxArea);
+		textAreaTrasfondo.setMinimumSize(maxArea);
+		textAreaTrasfondo.setLineWrap(true);
+		textAreaTrasfondo.setWrapStyleWord(true);
 		textAreaTrasfondo.setText("");
 		panel2.add(textAreaTrasfondo, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
 		final JLabel label10 = new JLabel();

@@ -51,6 +51,7 @@ public class Personaje {
         this.estaInspirado = estaInspirado;
         this.trasfondo = trasfondo;
         this.altura = altura;
+        this.edad = edad;
         this.peso = peso;
         this.vida_max = vida_max;
         this.vida_actual = vida_actual;
