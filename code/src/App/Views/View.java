@@ -15,6 +15,9 @@ public abstract class View {
         this.panel.setLayout(new BorderLayout());
     }
 
+    public JPanel getPanel(){
+        return this.panel;
+    }
     public abstract JPanel render();
 
 }
