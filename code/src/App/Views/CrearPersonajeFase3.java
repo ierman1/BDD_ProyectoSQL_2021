@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CrearPersonajeFase2 extends View {
+public class CrearPersonajeFase3 extends View {
 
-    public CrearPersonajeFase2(JFrame frame) {
+    public CrearPersonajeFase3(JFrame frame) {
         super(frame, "Crear personaje - Elige raza");
     }
 

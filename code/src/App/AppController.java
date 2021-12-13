@@ -53,6 +53,14 @@ public class AppController {
     }
 
     public static void crearPersonajeFase2() {
+        //Botón que te lleva a la vista CrearPersonaje2
+
+        //guardar en Personaje p los datos
+
         AppController.app.swapWindow(new CrearPersonajeFase2(AppController.app.appFrame));
+    }
+
+    public static void crearPersonajeFase3(){
+        AppController.app.swapWindow(new CrearPersonajeFase3(AppController.app.appFrame));
     }
 }

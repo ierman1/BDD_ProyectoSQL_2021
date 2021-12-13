@@ -2,11 +2,9 @@ package App.Views;
 
 import App.AppController;
 import App.Models.Personaje;
-import App.Views.Components.TextField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
@@ -15,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class CrearPersonaje extends View {
 
@@ -24,9 +21,6 @@ public class CrearPersonaje extends View {
     public CrearPersonaje(JFrame frame) {
         super(frame, "Crear personaje");
     }
-
-    int elementHeight = 0;
-    private static final int INCR_VERT = 35;
 
     public JPanel render() {
         JPanel panelFormulario;
@@ -52,7 +46,7 @@ public class CrearPersonaje extends View {
         panelAvatar = new JPanel();
         panelAvatar.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelFormulario.add(panelAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        lblAvatar = new JLabel(new ImageIcon(this.loadImage("./img/avatar.png")), SwingConstants.CENTER);
+        lblAvatar = new JLabel(new ImageIcon(this.loadImage("C:\\Users\\Guillem\\Desktop\\BDD_ProyectoSQL_2021\\code\\img\\avatar.png")), SwingConstants.CENTER);
         lblAvatar.setBorder(BorderFactory.createEmptyBorder(0,50,0,0));
         lblAvatar.setText("");
         panelAvatar.add(lblAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

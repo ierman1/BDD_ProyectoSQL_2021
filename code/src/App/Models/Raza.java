@@ -61,6 +61,32 @@ public class Raza {
         return result;
     }
 
+    public static List<Raza> getSubrazas(Integer idRazaPadre) {
+
+        ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE id_raza_padre = " + idRazaPadre);
+        List<Raza> result = new ArrayList<>();
+
+        try {
+            while(rs.next()){
+                result.add(new Raza(
+                        rs.getInt("id"),
+                        rs.getInt("id_raza_padre"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("velocidad_a_pie"),
+                        rs.getInt("velocidad_nado"),
+                        rs.getInt("velocidad_vuelo"),
+                        rs.getString("ventajas"),
+                        rs.getString("idiomas"),
+                        rs.getString("altura")));
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return result;
+    }
+
     public static List<Raza> getList() {
         Raza.LIST = Raza.get();
         return Raza.LIST;
@@ -87,6 +113,30 @@ public class Raza {
         }
 
         return result;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Integer getIdRazaPadre() {
+        return idRazaPadre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getVelocidadAPie() {
+        return velocidadAPie;
+    }
+
+    public String getIdiomas() {
+        return idiomas;
+    }
+
+    public String getVentajas() {
+        return ventajas;
     }
 
     @Override
