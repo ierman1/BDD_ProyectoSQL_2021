@@ -24,4 +24,17 @@ INSERT INTO public.objetos(
 	(3, 'pocion cura', 'cura', 2, '2x2', 1, false),
 	(4, 'toga', 'bata de ducha', 1, '2x2', 30, true),
 	(5, 'veneno', 'ta feo', 2, '2x2', 45, false);
-	
+
+INSERT INTO public.armas(
+	id_objeto, clase, dano1, dano2)
+	VALUES (2, 'finesse', 5, 2);
+
+INSERT INTO public.armaduras(
+	id_objeto, clase, defensa, bonus)
+	VALUES (1, 'ligera', 12, ''),
+	(4, 'magos', 8, 'ventaja en constitucion');	
+		
+INSERT INTO public.objetos_comunes(
+	id_objeto, efecto)
+	VALUES (3, 'cura 50'),
+	(5, '10 dano');
