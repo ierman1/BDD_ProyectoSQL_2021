@@ -1,15 +1,22 @@
 package App.Popups;
 
+import App.AppController;
+import App.Models.ItemInventario;
 import App.Models.Objeto;
+import App.Models.Personaje;
+import App.Views.InventarioPersonaje;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ObjetoInventario {
 
     private static boolean up = false;
 
-    public static void show() {
+    public static void show(Personaje p, InventarioPersonaje inventarioPersonaje) {
         if (ObjetoInventario.up)
             return;
 
@@ -56,6 +63,18 @@ public class ObjetoInventario {
         btnCantidad = new JTextField();
         panelDerecha.add(btnCantidad, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         btnAnadir = new JButton();
+
+        btnAnadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Objeto o = (Objeto) lstObjetos.getSelectedValue();
+                String qty = btnCantidad.getText();
+                ItemInventario.addItemToInv(o, p, Integer.parseInt(qty));
+                AppController.inventarioPersonaje(p);
+                frame.dispose();
+            }
+        });
+
         btnAnadir.setText("Anadir");
         panelDerecha.add(btnAnadir, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 

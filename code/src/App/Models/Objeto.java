@@ -107,6 +107,30 @@ public class Objeto {
         return result;
 
     }
+
+    public static Objeto getObjetoById(int id){
+        String sql = "SELECT "+TABLE_NAME_DAD+".* FROM "+TABLE_NAME_DAD+" WHERE ID = "+id+";";
+        List<Objeto> result = new ArrayList<>();
+
+        ResultSet rs = Connector.executeQuery(sql);
+        try {
+            while(rs.next()){
+                result.add(new Objeto(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("peso"),
+                        rs.getString("volumen"),
+                        rs.getInt("valor"),
+                        rs.getBoolean("equipable")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return result.get(0);
+
+    }
+
     @Override
     public String toString() {
         return this.nombre ;
