@@ -1,9 +1,11 @@
 package App.Popups;
 
 import App.AppController;
+import App.Models.Hechizos;
 import App.Models.ItemInventario;
 import App.Models.Objeto;
 import App.Models.Personaje;
+import App.Views.HechizosPersonaje;
 import App.Views.InventarioPersonaje;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class AprenderHechizos {
 
     private static boolean up = false;
 
-    public static void show(Personaje p) {
+    public static void show(Personaje p, HechizosPersonaje hechizoPersonaje) {
         if (AprenderHechizos.up)
             return;
 
@@ -39,8 +41,8 @@ public class AprenderHechizos {
         JPanel panelAprendibles;
         JButton aprenderButton;
         JButton desaprenderButton;
-        JList lstAprendidos;
-        JList lstAprendibles;
+        final JList lstAprendidos;
+        final JList lstAprendibles;
 
         panelRaiz = new JPanel();
         panelRaiz.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
@@ -51,8 +53,11 @@ public class AprenderHechizos {
         final JLabel label1 = new JLabel();
         label1.setText("Aprendidos");
         panelAprendidos.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        lstAprendidos = new JList();
-        panelAprendidos.add(lstAprendidos, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        lstAprendidos = new JList(Hechizos.getHechizosByPersonaje(p).toArray());
+
+        JScrollPane scrollListaAprendidos = new JScrollPane();
+        scrollListaAprendidos.setViewportView(lstAprendidos);
+        panelAprendidos.add(scrollListaAprendidos, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         panelCentral = new JPanel();
         panelCentral.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelRaiz.add(panelCentral, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -60,6 +65,7 @@ public class AprenderHechizos {
         aprenderButton.setText("Aprender");
         panelCentral.add(aprenderButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_SOUTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         desaprenderButton = new JButton();
+
         desaprenderButton.setText("Desaprender");
         panelCentral.add(desaprenderButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_NORTH, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panelAprendibles = new JPanel();
@@ -68,8 +74,41 @@ public class AprenderHechizos {
         final JLabel label2 = new JLabel();
         label2.setText("Aprendibles");
         panelAprendibles.add(label2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        lstAprendibles = new JList();
-        panelAprendibles.add(lstAprendibles, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        lstAprendibles = new JList(Hechizos.getHechizosAprendiblesByPj(p).toArray());
+
+        JScrollPane scrollListaAprendibles = new JScrollPane();
+        scrollListaAprendibles.setViewportView(lstAprendibles);
+
+        panelAprendibles.add(scrollListaAprendibles, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+
+        aprenderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hechizos.aprenderHechizo((Hechizos)lstAprendibles.getSelectedValue(), p);
+
+                DefaultListModel aprendidos =new DefaultListModel();
+                aprendidos.addAll(Hechizos.getHechizosByPersonaje(p));
+                lstAprendidos.setModel(aprendidos);
+
+                DefaultListModel aprendibles =new DefaultListModel();
+                aprendibles.addAll(Hechizos.getHechizosAprendiblesByPj(p));
+                lstAprendibles.setModel(aprendibles);
+
+            }
+        });
+        desaprenderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hechizos.desaprenderHechizo((Hechizos) lstAprendidos.getSelectedValue(), p);
+                DefaultListModel aprendidos =new DefaultListModel();
+                aprendidos.addAll(Hechizos.getHechizosByPersonaje(p));
+                lstAprendidos.setModel(aprendidos);
+
+                DefaultListModel aprendibles =new DefaultListModel();
+                aprendibles.addAll(Hechizos.getHechizosAprendiblesByPj(p));
+                lstAprendibles.setModel(aprendibles);
+            }
+        });
 
         frame.add(panelRaiz);
     }

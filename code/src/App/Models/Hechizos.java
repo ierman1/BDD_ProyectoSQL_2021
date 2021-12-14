@@ -1,0 +1,106 @@
+package App.Models;
+
+import App.Connector;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Hechizos {
+
+
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private int rango;
+    private String tiempoCast;
+    private String duracion;
+    private String coste;
+    private int nivel;
+
+    public Hechizos(int id, String nombre, String descripcion, int rango, String tiempoCast, String duracion, String coste, int nivel) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.rango = rango;
+        this.tiempoCast = tiempoCast;
+        this.duracion = duracion;
+        this.coste = coste;
+        this.nivel = nivel;
+    }
+
+
+
+    public static List<Hechizos> getHechizosByPersonaje(Personaje p){
+            String sql = "SELECT hechizos.* FROM hechizos WHERE id in (select id_hechizo from hechizos_aprendidos where id_personaje ="+p.getId()+" );";
+            List<Hechizos> result = new ArrayList<>();
+
+            ResultSet rs = Connector.executeQuery(sql);
+            try {
+                while(rs.next()){
+                    result.add(new Hechizos(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("descripcion"),
+                            rs.getInt("rango"),
+                            rs.getString("tiempo_canalizacion"),
+                            rs.getString("duracion"),
+                            rs.getString("coste"),
+                            rs.getInt("nivel")));
+                }
+            } catch (SQLException e) {
+
+            }
+            return result;
+    }
+
+    public static List<Hechizos> getHechizosAprendiblesByPj(Personaje p){
+        String sql =
+                "select * from hechizos where id in "
+                + "(select hc.id_hechizo from hechizos_clase hc "
+                + "where hc.id_clase ="+p.getClase().getId()+" "
+                + "union "
+                + "select hr.id_hechizo from hechizos_raza hr "
+                + "where hr.id_raza = "+p.getRaza().getId()+") "
+                + "and id not in "
+                + "(select id_hechizo from hechizos_aprendidos where id_personaje = "+p.getId()+")";
+        List<Hechizos> result = new ArrayList<>();
+
+        ResultSet rs = Connector.executeQuery(sql);
+        try {
+            while(rs.next()){
+                result.add(new Hechizos(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("rango"),
+                        rs.getString("tiempo_canalizacion"),
+                        rs.getString("duracion"),
+                        rs.getString("coste"),
+                        rs.getInt("nivel")));
+            }
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
+
+    public static void aprenderHechizo(Hechizos h, Personaje p){
+        if(h!=null){
+            String sql = "INSERT INTO hechizos_aprendidos (id_personaje, id_hechizo) values ("+p.getId()+", "+h.id+")";
+            Connector.executeUpdate(sql);
+        }
+    }
+    public static void desaprenderHechizo(Hechizos h, Personaje p){
+        if(h != null){
+            String sql = "DELETE FROM hechizos_aprendidos WHERE id_personaje= "+p.getId()+" and id_hechizo = "+h.id+";";
+            Connector.executeUpdate(sql);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Hechizo: "+nombre+", Nivel: "+ nivel+", Coste: "+coste+", Rango: "+rango+ ", Duracion: "+duracion + ", Efecto: "+descripcion ;
+    }
+}
