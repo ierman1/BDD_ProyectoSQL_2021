@@ -46,6 +46,9 @@ public class AppController {
     public static void inventarioPersonaje(Personaje personaje) {
         AppController.app.swapWindow(new InventarioPersonaje(AppController.app.appFrame, personaje));
     }
+    public static void hechizosPersonaje(Personaje personaje) {
+        AppController.app.swapWindow(new HechizosPersonaje(AppController.app.appFrame, personaje));
+    }
 
 
     public static void crearPersonaje() {
