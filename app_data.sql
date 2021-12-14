@@ -51,3 +51,6 @@ INSERT INTO public.hechizos(
 INSERT INTO public.hechizos_aprendidos(
 	id_personaje, id_hechizo)
 	VALUES (1, 2);	
+INSERT INTO public.hechizos_clase(
+	id_clase, id_hechizo)
+	VALUES (1, 1),(1,2),(1,3);
