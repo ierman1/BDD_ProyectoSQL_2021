@@ -40,3 +40,14 @@ INSERT INTO public.objetos_comunes(
 	id_objeto, efecto)
 	VALUES (3, 'cura 50'),
 	(5, '10 dano');
+	
+INSERT INTO public.hechizos(
+	id, nombre, descripcion, rango, tiempo_canalizacion, duracion, coste, nivel)
+	VALUES (1, 'Alarma', 'Activas una alarma contra intrusos. Elige una puerta, ventana o área dentro del alcance que no tenga más de 20 pies cúbicos. Hasta que el conjuro termine, una alarma te alerta cuando una criatura Diminuta o mayor toca o entra en el área protegida', 30, '1 min', '8 h', 'V, S, M (una campanilla y un alambre de plata fina)', 1),
+	(2, 'Bola fuego', 'Lanzas una bola de fuego. Todas las criaturas que se encuentren en una esfera de 20 pies de radio cuyo centro sea ese punto deben hacer una tirada de salvación de Destreza: si fallan, reciben 8d6 puntos de daño por fuego y, si tienen éxito, la mitad.', 150, '1 accion', 'Instantaneo', 'V, S, M (un bolita de guano de murciélago y azufre)', 3),
+	(3, 'Agarre electrizante', 'Un rayo surge de tu mano para golpear a una criatura que estás intentando tocar.', 0, '1 accion', 'Instantaneo', 'V, S', 0);
+	
+	
+INSERT INTO public.hechizos_aprendidos(
+	id_personaje, id_hechizo)
+	VALUES (1, 2);	
