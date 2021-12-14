@@ -13,6 +13,7 @@ public class Clase {
     private static String TABLE_NAME = "clases";
     private static List<Clase> LIST;
 
+
     private int id;
     private String nombre;
     private String descripcion;
@@ -29,6 +30,9 @@ public class Clase {
         this.salvacion2 = salvacion2;
     }
 
+    public int getId() {
+        return id;
+    }
     private static List<Clase> get() {
         ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
         List<Clase> result = new ArrayList<>();
