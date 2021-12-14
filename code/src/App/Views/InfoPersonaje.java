@@ -84,7 +84,7 @@ public class InfoPersonaje extends View {
 		// Eventos
 		botonVolver.addActionListener(e -> AppController.listaPersonajes());
 		botonInventario.addActionListener(e -> AppController.inventarioPersonaje(personaje));
-		botonHechizos.addActionListener(e -> AppController.listaPersonajes());
+		botonHechizos.addActionListener(e -> AppController.hechizosPersonaje(personaje));
 		botonGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
