@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class ObjetoInventario {
@@ -71,6 +72,7 @@ public class ObjetoInventario {
                 String qty = btnCantidad.getText();
                 ItemInventario.addItemToInv(o, p, Integer.parseInt(qty));
                 AppController.inventarioPersonaje(p);
+                ObjetoInventario.up = false;
                 frame.dispose();
             }
         });
