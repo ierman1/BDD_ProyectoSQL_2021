@@ -2,6 +2,7 @@ package App.Views;
 
 import App.AppController;
 import App.Models.Personaje;
+import App.Popups.AprenderHechizos;
 
 import javax.swing.*;
 import java.awt.*;

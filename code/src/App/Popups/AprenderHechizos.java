@@ -1,12 +1,9 @@
 package App.Popups;
 
 import App.AppController;
-import App.Models.Hechizos;
-import App.Models.ItemInventario;
-import App.Models.Objeto;
+import App.Models.Hechizo;
 import App.Models.Personaje;
 import App.Views.HechizosPersonaje;
-import App.Views.InventarioPersonaje;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -53,7 +50,7 @@ public class AprenderHechizos {
         final JLabel label1 = new JLabel();
         label1.setText("Aprendidos");
         panelAprendidos.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        lstAprendidos = new JList(Hechizos.getHechizosByPersonaje(p).toArray());
+        lstAprendidos = new JList(Hechizo.getHechizosByPersonaje(p).toArray());
 
         JScrollPane scrollListaAprendidos = new JScrollPane();
         scrollListaAprendidos.setViewportView(lstAprendidos);
@@ -74,7 +71,7 @@ public class AprenderHechizos {
         final JLabel label2 = new JLabel();
         label2.setText("Aprendibles");
         panelAprendibles.add(label2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        lstAprendibles = new JList(Hechizos.getHechizosAprendiblesByPj(p).toArray());
+        lstAprendibles = new JList(Hechizo.getHechizosAprendiblesByPj(p).toArray());
 
         JScrollPane scrollListaAprendibles = new JScrollPane();
         scrollListaAprendibles.setViewportView(lstAprendibles);
@@ -84,29 +81,33 @@ public class AprenderHechizos {
         aprenderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hechizos.aprenderHechizo((Hechizos)lstAprendibles.getSelectedValue(), p);
+                Hechizo.aprenderHechizo((Hechizo)lstAprendibles.getSelectedValue(), p);
 
                 DefaultListModel aprendidos =new DefaultListModel();
-                aprendidos.addAll(Hechizos.getHechizosByPersonaje(p));
+                aprendidos.addAll(Hechizo.getHechizosByPersonaje(p));
                 lstAprendidos.setModel(aprendidos);
 
                 DefaultListModel aprendibles =new DefaultListModel();
-                aprendibles.addAll(Hechizos.getHechizosAprendiblesByPj(p));
+                aprendibles.addAll(Hechizo.getHechizosAprendiblesByPj(p));
                 lstAprendibles.setModel(aprendibles);
+
+                AppController.hechizosPersonaje(p);
 
             }
         });
         desaprenderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hechizos.desaprenderHechizo((Hechizos) lstAprendidos.getSelectedValue(), p);
+                Hechizo.desaprenderHechizo((Hechizo) lstAprendidos.getSelectedValue(), p);
                 DefaultListModel aprendidos =new DefaultListModel();
-                aprendidos.addAll(Hechizos.getHechizosByPersonaje(p));
+                aprendidos.addAll(Hechizo.getHechizosByPersonaje(p));
                 lstAprendidos.setModel(aprendidos);
 
                 DefaultListModel aprendibles =new DefaultListModel();
-                aprendibles.addAll(Hechizos.getHechizosAprendiblesByPj(p));
+                aprendibles.addAll(Hechizo.getHechizosAprendiblesByPj(p));
                 lstAprendibles.setModel(aprendibles);
+
+                AppController.hechizosPersonaje(p);
             }
         });
 

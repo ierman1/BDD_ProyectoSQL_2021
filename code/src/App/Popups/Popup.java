@@ -8,8 +8,8 @@ public abstract class Popup {
         JOptionPane.showMessageDialog(new JFrame(), message, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    public static int showOk(String title, String message) {
-        return JOptionPane.showConfirmDialog(new JFrame(), message, title, JOptionPane.OK_OPTION);
+    public static void showOk(String title, String message) {
+        JOptionPane.showConfirmDialog(new JFrame(), message, title, JOptionPane.YES_OPTION);
     }
 
     public static int showConfirm(String title, String message) {

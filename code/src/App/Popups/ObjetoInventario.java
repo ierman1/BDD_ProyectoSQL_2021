@@ -35,7 +35,7 @@ public class ObjetoInventario {
         });
 
         JList lstObjetos;
-        JTextField btnCantidad;
+        JTextField tfCantidad;
         JButton btnAnadir;
         JLabel lblCantidad;
         JPanel panelDerecha;
@@ -61,19 +61,22 @@ public class ObjetoInventario {
         panelDerecha.add(lblCantidad, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
         panelDerecha.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        btnCantidad = new JTextField();
-        panelDerecha.add(btnCantidad, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        tfCantidad = new JTextField("1");
+        panelDerecha.add(tfCantidad, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         btnAnadir = new JButton();
 
         btnAnadir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Objeto o = (Objeto) lstObjetos.getSelectedValue();
-                String qty = btnCantidad.getText();
+                String qty = tfCantidad.getText();
                 ItemInventario.addItemToInv(o, p, Integer.parseInt(qty));
                 AppController.inventarioPersonaje(p);
                 ObjetoInventario.up = false;
                 frame.dispose();
+                ObjetoInventario.up = false;
+
+                Popup.showOk("Objeto añadido", "Se ha añadido " + o.getNombre() + " x" + qty);
             }
         });
 

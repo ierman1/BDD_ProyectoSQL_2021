@@ -17,6 +17,19 @@ public class ItemInventario {
         this.objeto = objeto;
         this.personaje = personaje;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public Objeto getObjeto() {
+        return objeto;
+    }
+
+    public Personaje getPersonaje() {
+        return personaje;
+    }
+
     public static List<ItemInventario> getItemsByPj(Personaje p){
         String sql = "SELECT * FROM INVENTARIOS WHERE ID_PERSONAJE = " + p.getId();
         ResultSet rs = Connector.executeQuery(sql);
