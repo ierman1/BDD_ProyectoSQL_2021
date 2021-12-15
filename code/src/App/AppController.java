@@ -66,4 +66,19 @@ public class AppController {
     public static void crearPersonajeFase3(){
         AppController.app.swapWindow(new CrearPersonajeFase3(AppController.app.appFrame));
     }
+
+    public static void crearPersonajeFase4(){
+        AppController.app.swapWindow(new CrearPersonajeFase4(AppController.app.appFrame));
+    }
+
+    public static void crearPersonajeFase5(){
+        AppController.app.swapWindow(new CrearPersonajeFase5(AppController.app.appFrame));
+    }
+
+    public static void crearPersonajeGuardar(){
+
+        //guardar personaje + INSERT
+
+        AppController.app.swapWindow(new CrearPersonajeFase5(AppController.app.appFrame));
+    }
 }
