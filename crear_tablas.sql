@@ -47,7 +47,7 @@ CREATE TABLE razas (
 	velocidad_vuelo NUMERIC NOT NULL DEFAULT 0,
 	ventajas TEXT,
 	idiomas TEXT,
-	altura VARCHAR(10) NOT NULL,
+	altura TEXT NOT NULL,
 	
 	CONSTRAINT razas_pk PRIMARY KEY (id)
 );
@@ -118,13 +118,13 @@ CREATE TABLE packs_inciales (
 	CONSTRAINT packs_inciales_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE objetos_packs_iniciales {
+CREATE TABLE objetos_packs_iniciales (
 	id_objeto NUMERIC,
-	id_pack_inicial NUMERIC
+	id_pack_inicial NUMERIC,
 	cantidad NUMERIC NOT NULL DEFAULT 1,
 	
 	CONSTRAINT objetos_packs_iniciales_pk PRIMARY KEY (id_objeto, id_pack_inicial)
-}
+);
 
 CREATE TABLE hechizos_aprendidos (
 	id_personaje NUMERIC,
