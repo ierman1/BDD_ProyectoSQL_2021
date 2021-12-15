@@ -1,6 +1,7 @@
 package App.Models;
 
 import App.Connector;
+import jdk.jshell.spi.ExecutionControl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,6 +54,44 @@ public class Clase {
 
         return result;
     }
+
+    public static String getHechizosDeClase(String nombre) {
+        String sql = "SELECT string_agg(h.nombre, ', ') as atr FROM hechizos h " +
+                "JOIN hechizos_clase hc ON (h.id = hc.id_hechizo) " +
+                "JOIN " + TABLE_NAME + " c ON (hc.id_clase = c.id) " +
+                "WHERE c.nombre = '" + nombre + "'";
+        ResultSet rs = Connector.executeQuery(sql);
+
+        String result = "";
+        try {
+            rs.next();
+            result = rs.getString("atr");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL error : " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    public String getObjetosInicialesDeClase(String nombre){
+        String sql = "SELECT string_agg(o.nombre, ', ') as atr FROM objetos o "+
+        "JOIN objetos_iniciales oi ON (oi.id_objeto = o.id) " +
+        "JOIN " + TABLE_NAME + " c ON (c.id = oi.id_clase) " +
+        "WHERE c.nombre = '" + nombre + "'";
+        ResultSet rs = Connector.executeQuery(sql);
+
+        String result = "";
+        try {
+            rs.next();
+            result = rs.getString("atr");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("SQL error : " + e.getMessage());
+        }
+
+        return result;
+    }
     
 
     public static List<Clase> getList() {
@@ -90,5 +129,21 @@ public class Clase {
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getDadoVida() {
+        return dadoVida;
+    }
+
+    public int getSalvacion1() {
+        return salvacion1;
+    }
+
+    public Integer getSalvacion2() {
+        return salvacion2;
     }
 }
