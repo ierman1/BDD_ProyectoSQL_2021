@@ -122,6 +122,8 @@ CREATE TABLE objetos_packs_iniciales {
 	id_objeto NUMERIC,
 	id_pack_inicial NUMERIC
 	cantidad NUMERIC NOT NULL DEFAULT 1,
+	
+	CONSTRAINT objetos_packs_iniciales_pk PRIMARY KEY (id_objeto, id_pack_inicial)
 }
 
 CREATE TABLE hechizos_aprendidos (
