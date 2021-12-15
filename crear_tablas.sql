@@ -110,13 +110,19 @@ CREATE TABLE inventarios (
 	CONSTRAINT inventarios_pk PRIMARY KEY (id_personaje, id_objeto)
 );
 
-CREATE TABLE objetos_iniciales (
-	id_clase NUMERIC,
-	id_objeto NUMERIC,
-	cantidad NUMERIC NOT NULL DEFAULT 1,
+CREATE TABLE packs_inciales (
+	id BIGSERIAL,
+	nombre varchar(255) NOT NULL,
+	id_clase NUMERIC NULL,
 	
-	CONSTRAINT objetos_iniciales_pk PRIMARY KEY (id_clase, id_objeto)
+	CONSTRAINT packs_inciales_pk PRIMARY KEY (id)
 );
+
+CREATE TABLE objetos_packs_iniciales {
+	id_objeto NUMERIC,
+	id_pack_inicial NUMERIC
+	cantidad NUMERIC NOT NULL DEFAULT 1,
+}
 
 CREATE TABLE hechizos_aprendidos (
 	id_personaje NUMERIC,
