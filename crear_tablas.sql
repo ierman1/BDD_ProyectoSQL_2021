@@ -1,5 +1,5 @@
 CREATE TABLE clases (
-                        id NUMERIC,
+                        id bigserial,
                         nombre VARCHAR(255) NOT NULL,
                         descripcion TEXT,
                         dado_vida NUMERIC NOT NULL,
