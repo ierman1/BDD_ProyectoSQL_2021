@@ -1,13 +1,17 @@
 package App.Components;
 
 import App.AppController;
+import App.Connector;
 import App.Models.Personaje;
+import App.Popups.Popup;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 
 public class TarjetaPersonaje extends JPanel {
@@ -49,6 +53,19 @@ public class TarjetaPersonaje extends JPanel {
         panelBotones.add(btnBorrar, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
         btnFicha.addActionListener(e -> AppController.infoPersonaje(this.personaje));
+        btnBorrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int i = Popup.showConfirm("Borrar personaje", "Desea borrar el personaje " + personaje.getNombre() + "?") ;
+                if(i == 0){
+
+                    Connector.executeUpdate("DELETE FROM INVENTARIOS WHERE ID_PERSONAJE = " + personaje.getId());
+                    Connector.executeUpdate("DELETE FROM HECHIZOS_APRENDIDOS WHERE ID_PERSONAJE = " + personaje.getId());
+                    Connector.executeUpdate("DELETE FROM PERSONAJES WHERE ID = " + personaje.getId());
+                    AppController.listaPersonajes();
+                }
+            }
+        });
     }
 
     public Personaje getPersonaje() {
