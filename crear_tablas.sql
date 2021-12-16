@@ -1,5 +1,5 @@
 CREATE TABLE clases (
-                        id BIGSERIAL,
+                        id NUMERIC,
                         nombre VARCHAR(255) NOT NULL,
                         descripcion TEXT,
                         dado_vida NUMERIC NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE clases (
 
 CREATE TABLE razas (
                        id BIGSERIAL,
-                       id_raza_padre BIGSERIAL REFERENCES razas (id),
+                       id_raza_padre BIGINT REFERENCES razas (id),
                        nombre VARCHAR(255) NOT NULL,
                        descripcion TEXT,
                        velocidad_a_pie NUMERIC NOT NULL,
