@@ -1,5 +1,6 @@
 package App.Models;
 
+import App.AppController;
 import App.Connector;
 
 import java.sql.ResultSet;
@@ -86,7 +87,8 @@ public class Objeto {
     }
 
     public static List<Objeto> getObjectList() {
-        ResultSet rs = Connector.executeQuery("SELECT "+TABLE_NAME_DAD+".*  FROM " + TABLE_NAME_DAD);
+        String sql = "SELECT "+TABLE_NAME_DAD+".*  FROM " + TABLE_NAME_DAD;
+        ResultSet rs = Connector.executeQuery(sql);
         List<Objeto> result = new ArrayList<>();
 
         try {
@@ -103,6 +105,8 @@ public class Objeto {
         } catch (SQLException e) {
 
         }
+
+        AppController.nuevoRegistro(sql);
 
         return result;
 
@@ -113,10 +117,11 @@ public class Objeto {
      * @return
      */
     public static List<Objeto> getObjectsFromPackAventurero() {
-        ResultSet rs = Connector.executeQuery("select o.* from objetos_packs_iniciales opi " +
-                        "    join packs_iniciales packs_ini on (packs_ini.id = opi.id_pack_inicial) " +
-                        "    join objetos o on (o.id = opi.id_objeto) " +
-                        "    where packs_ini.nombre = 'Pack de aventurero'");
+        String sql = "select o.* from objetos_packs_iniciales opi " +
+                "    join packs_iniciales packs_ini on (packs_ini.id = opi.id_pack_inicial) " +
+                "    join objetos o on (o.id = opi.id_objeto) " +
+                "    where packs_ini.nombre = 'Pack de aventurero'";
+        ResultSet rs = Connector.executeQuery(sql);
         List<Objeto> result = new ArrayList<>();
 
         try {
@@ -134,14 +139,17 @@ public class Objeto {
 
         }
 
+        AppController.nuevoRegistro(sql);
+
         return result;
 
     }
 
     public static String getPackFromClase(String nombre_clase){
-        ResultSet rs = Connector.executeQuery("select ini.nombre from packs_iniciales ini " +
+        String sql = "select ini.nombre from packs_iniciales ini " +
                 "join clases c on (ini.id_clase = c.id) " +
-                "where c.nombre ='" + nombre_clase + "'");
+                "where c.nombre ='" + nombre_clase + "'";
+        ResultSet rs = Connector.executeQuery(sql);
         String result = null;
 
         try {
@@ -152,15 +160,17 @@ public class Objeto {
 
         }
 
+        AppController.nuevoRegistro(sql);
         return result;
     }
 
     public static List<Objeto> getObjectsFromPackClase(String nombre_clase) {
-        ResultSet rs = Connector.executeQuery("select o.* from objetos_packs_iniciales opi " +
+        String sql = "select o.* from objetos_packs_iniciales opi " +
                 "join packs_iniciales packs_ini on (packs_ini.id = opi.id_pack_inicial) " +
                 "join clases c on (c.id = packs_ini.id_clase) " +
                 "join objetos o on (o.id = opi.id_objeto) " +
-                "where c.nombre = '" + nombre_clase + "'");
+                "where c.nombre = '" + nombre_clase + "'";
+        ResultSet rs = Connector.executeQuery(sql);
         List<Objeto> result = new ArrayList<>();
 
         try {
@@ -178,6 +188,7 @@ public class Objeto {
 
         }
 
+        AppController.nuevoRegistro(sql);
         return result;
 
     }
@@ -202,6 +213,8 @@ public class Objeto {
         } catch (SQLException e) {
 
         }
+
+        AppController.nuevoRegistro(sql);
         return result.get(0);
 
     }

@@ -1,5 +1,6 @@
 package App.Models;
 
+import App.AppController;
 import App.Connector;
 
 import java.sql.ResultSet;
@@ -37,7 +38,8 @@ public class Raza {
     }
 
     private static List<Raza> get() {
-        ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
+        String sql = "SELECT * FROM " + TABLE_NAME;
+        ResultSet rs = Connector.executeQuery(sql);
         List<Raza> result = new ArrayList<>();
 
         try {
@@ -58,12 +60,14 @@ public class Raza {
 
         }
 
+        AppController.nuevoRegistro(sql);
         return result;
     }
 
     public static List<Raza> getSubrazas(Integer idRazaPadre) {
 
-        ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE id_raza_padre = " + idRazaPadre);
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id_raza_padre = " + idRazaPadre;
+        ResultSet rs = Connector.executeQuery(sql);
         List<Raza> result = new ArrayList<>();
 
         try {
@@ -84,6 +88,7 @@ public class Raza {
 
         }
 
+        AppController.nuevoRegistro(sql);
         return result;
     }
 

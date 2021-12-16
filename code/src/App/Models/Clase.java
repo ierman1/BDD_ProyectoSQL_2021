@@ -1,5 +1,6 @@
 package App.Models;
 
+import App.AppController;
 import App.Connector;
 import jdk.jshell.spi.ExecutionControl;
 
@@ -35,7 +36,8 @@ public class Clase {
         return id;
     }
     private static List<Clase> get() {
-        ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
+        String sql = "SELECT * FROM " + TABLE_NAME;
+        ResultSet rs = Connector.executeQuery(sql);
         List<Clase> result = new ArrayList<>();
 
         try {
@@ -51,6 +53,8 @@ public class Clase {
         } catch (SQLException e) {
 
         }
+
+        AppController.nuevoRegistro(sql);
 
         return result;
     }
@@ -71,6 +75,8 @@ public class Clase {
             throw new RuntimeException("SQL error : " + e.getMessage());
         }
 
+        AppController.nuevoRegistro(sql);
+
         return result;
     }
 
@@ -89,6 +95,8 @@ public class Clase {
         } catch (SQLException e) {
             throw new RuntimeException("SQL error : " + e.getMessage());
         }
+
+        AppController.nuevoRegistro(sql);
 
         return result;
     }

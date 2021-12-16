@@ -1,5 +1,6 @@
 package App.Models;
 
+import App.AppController;
 import App.Connector;
 
 import java.sql.*;
@@ -325,10 +326,13 @@ public class Personaje {
                 " WHERE id = '"+this.id+"';";
             Connector.executeUpdate(SQL);
 
+            AppController.nuevoRegistro(SQL);
+
     }
 
     private static List<Personaje> get() {
-        ResultSet rs = Connector.executeQuery("SELECT * FROM " + TABLE_NAME);
+        String sql = "SELECT * FROM " + TABLE_NAME;
+        ResultSet rs = Connector.executeQuery(sql);
         List<Personaje> result = new ArrayList<>();
 
         try {
@@ -358,6 +362,7 @@ public class Personaje {
 
         }
 
+        AppController.nuevoRegistro(sql);
         return result;
     }
 

@@ -1,6 +1,7 @@
 package App;
 
 import App.Models.Personaje;
+import App.Popups.RegistroConsultas;
 import App.Views.*;
 
 import javax.swing.*;
@@ -11,17 +12,21 @@ public class AppController {
     private static AppController app;
     private View currentView;
     private JFrame appFrame;
+    private RegistroConsultas registro;
 
-    private AppController() {
+    private AppController(boolean debug) {
         this.appFrame = new JFrame();
         this.appFrame.setSize(800, 400);
         this.appFrame.setResizable(false);
         this.appFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.appFrame.setVisible(true);
+
+        if (debug)
+            this.registro = new RegistroConsultas();
     }
 
-    public static void start() {
-        AppController.app = new AppController();
+    public static void start(boolean registrar) {
+        AppController.app = new AppController(registrar);
     }
 
     private void swapWindow(View view) {
@@ -33,6 +38,11 @@ public class AppController {
         this.appFrame.add(this.currentView.render());
         this.appFrame.revalidate();
         this.appFrame.repaint();
+    }
+
+    public static void nuevoRegistro(String registro) {
+        if (AppController.app.registro != null)
+            AppController.app.registro.nuevaLinea(registro);
     }
 
     public static void listaPersonajes() {

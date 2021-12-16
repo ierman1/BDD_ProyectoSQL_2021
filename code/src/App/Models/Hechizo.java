@@ -1,5 +1,6 @@
 package App.Models;
 
+import App.AppController;
 import App.Connector;
 
 import java.sql.ResultSet;
@@ -82,6 +83,8 @@ public class Hechizo {
             } catch (SQLException e) {
 
             }
+
+            AppController.nuevoRegistro(sql);
             return result;
     }
 
@@ -105,6 +108,8 @@ public class Hechizo {
         } catch (SQLException e) {
 
         }
+
+        AppController.nuevoRegistro(sql);
         return result.get(0);
     }
 
@@ -136,6 +141,8 @@ public class Hechizo {
         } catch (SQLException e) {
 
         }
+
+        AppController.nuevoRegistro(sql);
         return result;
     }
 
