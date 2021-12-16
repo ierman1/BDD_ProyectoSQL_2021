@@ -76,7 +76,7 @@ public class Clase {
         }
 
         AppController.nuevoRegistro(sql);
-
+        if(result == null ) return "Aun no tiene hechizos de clase.";
         return result;
     }
 

@@ -69,13 +69,14 @@ public class Personaje {
 
     public static int getMaxId(){
         String sql = "SELECT max(id) FROM personajes";
+
         ResultSet rs = Connector.executeQuery(sql);
 
         int result = 0;
 
         try {
             while(rs.next()){
-                result = rs.getInt("id");
+                result = rs.getInt("max");
             }
         } catch (SQLException e) {
 

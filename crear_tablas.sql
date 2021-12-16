@@ -112,17 +112,17 @@ CREATE TABLE inventarios (
                              CONSTRAINT inventarios_pk PRIMARY KEY (id_personaje, id_objeto)
 );
 
-CREATE TABLE packs_inciales (
+CREATE TABLE packs_iniciales (
                                 id BIGSERIAL,
                                 nombre varchar(255) NOT NULL,
                                 id_clase BIGINT REFERENCES clases(id),
 
-                                CONSTRAINT packs_inciales_pk PRIMARY KEY (id)
+                                CONSTRAINT packs_iniciales_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE objetos_packs_iniciales (
                                          id_objeto BIGSERIAL,
-                                         id_pack_inicial BIGSERIAL REFERENCES packs_inciales(id),
+                                         id_pack_inicial BIGSERIAL REFERENCES packs_iniciales(id),
                                          cantidad NUMERIC NOT NULL DEFAULT 1,
 
                                          CONSTRAINT objetos_packs_iniciales_pk PRIMARY KEY (id_objeto, id_pack_inicial)

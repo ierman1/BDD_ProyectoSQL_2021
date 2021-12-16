@@ -160,7 +160,7 @@ public class CrearPersonajeFase5 extends View {
             p.setId(newPersonajeId);
 
             for(Objeto o : p.getObjetosIniciales()){
-                //ItemInventario.addItemToInv(o, p, 1);
+                ItemInventario.addItemToInv(o, p, 1);
             }
 
             AppController.listaPersonajes();

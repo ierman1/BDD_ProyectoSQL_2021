@@ -55,6 +55,7 @@ public class ItemInventario {
                 "        ON CONFLICT (id_personaje, id_objeto) DO UPDATE " +
                 "        SET cantidad = INVENTARIOS.cantidad +"+cantidad+" ;";
 
+
         Connector.executeUpdate(sql);
         AppController.nuevoRegistro(sql);
     }
