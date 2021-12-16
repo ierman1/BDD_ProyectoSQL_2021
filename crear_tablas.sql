@@ -1,7 +1,33 @@
+CREATE TABLE clases (
+                        id BIGSERIAL,
+                        nombre VARCHAR(255) NOT NULL,
+                        descripcion TEXT,
+                        dado_vida NUMERIC NOT NULL,
+                        salvacion_1 NUMERIC NOT NULL,
+                        salvacion_2 NUMERIC,
+
+                        CONSTRAINT clases_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE razas (
+                       id BIGSERIAL,
+                       id_raza_padre BIGSERIAL REFERENCES razas (id),
+                       nombre VARCHAR(255) NOT NULL,
+                       descripcion TEXT,
+                       velocidad_a_pie NUMERIC NOT NULL,
+                       velocidad_nado NUMERIC NOT NULL DEFAULT 0,
+                       velocidad_vuelo NUMERIC NOT NULL DEFAULT 0,
+                       ventajas TEXT,
+                       idiomas TEXT,
+                       altura TEXT NOT NULL,
+
+                       CONSTRAINT razas_pk PRIMARY KEY (id)
+);
+
 CREATE TABLE personajes (
 	id BIGSERIAL,
-	id_clase NUMERIC NOT NULL,
-	id_raza NUMERIC NOT NULL,
+	id_clase BIGSERIAL NOT NULL REFERENCES clases (id),
+	id_raza BIGSERIAL NOT NULL REFERENCES razas(id),
 	
 	-- datos
 	nombre varchar(255) NOT NULL,
@@ -26,31 +52,7 @@ CREATE TABLE personajes (
 	CONSTRAINT personajes_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE clases (
-	id BIGSERIAL,
-	nombre VARCHAR(255) NOT NULL,
-	descripcion TEXT,
-	dado_vida NUMERIC NOT NULL,
-	salvacion_1 NUMERIC NOT NULL,
-	salvacion_2 NUMERIC,
-	
-	CONSTRAINT clases_pk PRIMARY KEY (id)
-);
 
-CREATE TABLE razas (
-	id BIGSERIAL,
-	id_raza_padre NUMERIC,
-	nombre VARCHAR(255) NOT NULL,
-	descripcion TEXT,
-	velocidad_a_pie NUMERIC NOT NULL,
-	velocidad_nado NUMERIC NOT NULL DEFAULT 0,
-	velocidad_vuelo NUMERIC NOT NULL DEFAULT 0,
-	ventajas TEXT,
-	idiomas TEXT,
-	altura TEXT NOT NULL,
-	
-	CONSTRAINT razas_pk PRIMARY KEY (id)
-);
 
 CREATE TABLE hechizos (
 	id BIGSERIAL,
@@ -78,14 +80,14 @@ CREATE TABLE objetos (
 );
 
 CREATE TABLE objetos_comunes (
-	id_objeto NUMERIC,
+	id_objeto BIGSERIAL REFERENCES objetos(id),
 	efecto TEXT,
 	
 	CONSTRAINT objetos_comunes_pk PRIMARY KEY (id_objeto)
 );
 
 CREATE TABLE armaduras (
-	id_objeto NUMERIC,
+	id_objeto BIGSERIAL REFERENCES objetos(id),
 	clase VARCHAR(255) NOT NULL,
 	defensa NUMERIC NOT NULL DEFAULT 0,
 	bonus TEXT,
@@ -94,7 +96,7 @@ CREATE TABLE armaduras (
 );
 
 CREATE TABLE armas (
-	id_objeto NUMERIC,
+	id_objeto BIGSERIAL REFERENCES objetos(id),
 	clase varchar(255) NOT NULL,
 	dano1 NUMERIC NOT NULL DEFAULT 0,
 	dano2 NUMERIC,
@@ -103,8 +105,8 @@ CREATE TABLE armas (
 );
 
 CREATE TABLE inventarios (
-	id_personaje NUMERIC,
-	id_objeto NUMERIC,
+	id_personaje BIGSERIAL REFERENCES personajes(id),
+	id_objeto BIGSERIAL REFERENCES objetos(id),
 	cantidad NUMERIC NOT NULL DEFAULT 1,
 	
 	CONSTRAINT inventarios_pk PRIMARY KEY (id_personaje, id_objeto)
@@ -113,36 +115,36 @@ CREATE TABLE inventarios (
 CREATE TABLE packs_inciales (
 	id BIGSERIAL,
 	nombre varchar(255) NOT NULL,
-	id_clase NUMERIC NULL,
+	id_clase BIGSERIAL NOT NULL REFERENCES clases(id),
 	
 	CONSTRAINT packs_inciales_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE objetos_packs_iniciales (
-	id_objeto NUMERIC,
-	id_pack_inicial NUMERIC,
+	id_objeto BIGSERIAL,
+	id_pack_inicial BIGSERIAL REFERENCES packs_inciales(id),
 	cantidad NUMERIC NOT NULL DEFAULT 1,
 	
 	CONSTRAINT objetos_packs_iniciales_pk PRIMARY KEY (id_objeto, id_pack_inicial)
 );
 
 CREATE TABLE hechizos_aprendidos (
-	id_personaje NUMERIC,
-	id_hechizo NUMERIC,
+	id_personaje BIGSERIAL REFERENCES personajes(id),
+	id_hechizo BIGSERIAL REFERENCES hechizos(id),
 	
 	CONSTRAINT hechizos_aprendidos_pk PRIMARY KEY (id_personaje, id_hechizo)
 );
 
 CREATE TABLE hechizos_clase (
-	id_clase NUMERIC,
-	id_hechizo NUMERIC,
+	id_clase BIGSERIAL REFERENCES clases(id),
+	id_hechizo BIGSERIAL REFERENCES hechizos(id),
 	
 	CONSTRAINT hechizos_clase_pk PRIMARY KEY (id_clase, id_hechizo)
 );
 
 CREATE TABLE hechizos_raza (
-	id_raza NUMERIC,
-	id_hechizo NUMERIC,
+	id_raza BIGSERIAL references razas(id),
+	id_hechizo BIGSERIAL REFERENCES hechizos(id),
 	
 	CONSTRAINT hechizos_raza_pk PRIMARY KEY (id_raza, id_hechizo)
 );
