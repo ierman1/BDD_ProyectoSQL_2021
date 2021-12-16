@@ -6,6 +6,7 @@ import App.Components.TarjetaPersonaje;
 import App.Models.Personaje;
 import App.Popups.AprenderHechizos;
 import App.Popups.ObjetoInventario;
+import App.Popups.popupResumen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,8 @@ public class ListaPersonajes extends View {
         panelBotones.setMaximumSize(new Dimension(500, 100));
         panelBotones.add(botonCrear);
 
+        JButton botonResumen = new JButton("Ver Resumen");
+        panelBotones.add(botonResumen);
         // Panel partido: lista + opciones
         ScrollablePanel panelPersonajes = new ScrollablePanel();
         panelPersonajes.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -37,6 +40,7 @@ public class ListaPersonajes extends View {
         this.panel.add(panelBotones, BorderLayout.PAGE_END);
 
         botonCrear.addActionListener(e -> AppController.crearPersonaje());
+        botonResumen.addActionListener(e -> popupResumen.show());
 
         return this.panel;
     }
