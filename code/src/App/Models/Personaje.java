@@ -380,15 +380,39 @@ public class Personaje {
     }
 
     public static Personaje find(int id) {
-        Personaje result;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
+        List<Personaje> result = new ArrayList<>();
 
+        ResultSet rs = Connector.executeQuery(sql);
         try {
-            result = (Personaje) Personaje.getList().stream().filter(personaje -> personaje.id == id).toArray()[0];
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            return null;
+            while(rs.next()){
+                result.add(new Personaje(
+                        rs.getInt("id"),
+                        rs.getInt("id_clase"),
+                        rs.getInt("id_raza"),
+                        rs.getString("nombre"),
+                        rs.getInt("nivel"),
+                        rs.getBoolean("esta_inspirado"),
+                        rs.getString("trasfondo"),
+                        rs.getInt("edad"),
+                        rs.getInt("altura"),
+                        rs.getInt("peso"),
+                        rs.getInt("vida_max"),
+                        rs.getInt("vida_actual"),
+                        rs.getInt("oro"),
+                        rs.getInt("fuerza"),
+                        rs.getInt("destreza"),
+                        rs.getInt("constitucion"),
+                        rs.getInt("inteligencia"),
+                        rs.getInt("sabiduria"),
+                        rs.getInt("carisma")));
+            }
+        } catch (SQLException e) {
+
         }
 
-        return result;
+        AppController.nuevoRegistro(sql);
+        return result.get(0);
     }
 
     @Override

@@ -4,14 +4,10 @@ import App.AppController;
 import App.Components.ScrollablePanel;
 import App.Components.TarjetaPersonaje;
 import App.Models.Personaje;
-import App.Popups.AprenderHechizos;
-import App.Popups.ObjetoInventario;
-import App.Popups.popupResumen;
+import App.Popups.Resumen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class ListaPersonajes extends View {
@@ -42,7 +38,7 @@ public class ListaPersonajes extends View {
         this.panel.add(panelBotones, BorderLayout.PAGE_END);
 
         botonCrear.addActionListener(e -> AppController.crearPersonaje());
-        botonResumen.addActionListener(e -> popupResumen.show());
+        botonResumen.addActionListener(e -> Resumen.show());
 
         return this.panel;
     }

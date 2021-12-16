@@ -35,6 +35,7 @@ public class Clase {
     public int getId() {
         return id;
     }
+
     private static List<Clase> get() {
         String sql = "SELECT * FROM " + TABLE_NAME;
         ResultSet rs = Connector.executeQuery(sql);
@@ -115,15 +116,26 @@ public class Clase {
     }
 
     public static Clase find(int id) {
-        Clase result;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
+        List<Clase> result = new ArrayList<>();
 
+        ResultSet rs = Connector.executeQuery(sql);
         try {
-            result = (Clase) Clase.getList().stream().filter(clase -> clase.id == id).toArray()[0];
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            return null;
+            while(rs.next()){
+                result.add(new Clase(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("dado_vida"),
+                        rs.getInt("salvacion_1"),
+                        rs.getInt("salvacion_2")));
+            }
+        } catch (SQLException e) {
+
         }
 
-        return result;
+        AppController.nuevoRegistro(sql);
+        return result.get(0);
     }
 
     public String getNombre() {

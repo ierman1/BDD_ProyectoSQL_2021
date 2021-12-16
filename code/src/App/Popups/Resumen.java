@@ -1,5 +1,6 @@
 package App.Popups;
 
+import App.AppController;
 import App.Connector;
 import App.Models.Hechizo;
 import App.Models.Personaje;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 
 import static App.Connector.executeQuery;
 
-public class popupResumen {
+public class Resumen {
 
     private static boolean up = false;
 
@@ -22,7 +23,7 @@ public class popupResumen {
             return;
         up = true;
         JFrame frame = new JFrame("Resumen");
-        frame.setSize(800, 400);
+        frame.setSize(600, 300);
         frame.setResizable(false);
         frame.setVisible(true);
         JPanel panelRaiz = new JPanel();
@@ -57,6 +58,8 @@ public class popupResumen {
         }
         lblBigSpellCaster.setText("El personaje con mas hechizos es "+name+" con "+qt+" hechizos");
 
+        AppController.nuevoRegistro(bigSpellcaster);
+
 
         String bigBountyHunters =
                 "select sum(pj.oro) as oro, cl.nombre as nombre " +
@@ -79,6 +82,8 @@ public class popupResumen {
         }
         lblBigBountyHunter.setText("La clase con más capital acumulado es "+nameBounty+" con unas arcas de "+oro+" de oro");
 
+        AppController.nuevoRegistro(bigBountyHunters);
+
         String richRaze =
                 "select sum(pj.oro) as oro, rz.nombre as nombre " +
                         "from personajes pj join razas rz on pj.id_raza = rz.id " +
@@ -100,6 +105,7 @@ public class popupResumen {
         }
         lblRazeBounty.setText("La raza con más capital acumulado es "+nameRaza+" con unas arcas de "+oroRaza+" de oro");
 
+        AppController.nuevoRegistro(richRaze);
 
         String commonSpell =
                 "select count (ha.id_hechizo) as times, h.nombre as nombre " +
@@ -121,6 +127,8 @@ public class popupResumen {
 
         }
         lblCommonSpell.setText("El hechizo mas comun es "+spell+ " aprendido "+learn+" veces");
+
+        AppController.nuevoRegistro(commonSpell);
 
         panelRaiz.add(lblBigSpellCaster);
         panelRaiz.add(lblBigBountyHunter);

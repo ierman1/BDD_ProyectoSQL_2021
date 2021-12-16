@@ -109,15 +109,30 @@ public class Raza {
     }
     
     public static Raza find(int id) {
-        Raza result;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
+        List<Raza> result = new ArrayList<>();
 
+        ResultSet rs = Connector.executeQuery(sql);
         try {
-            result = (Raza) Raza.getList().stream().filter(raza -> raza.id == id).toArray()[0];
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            return null;
+            while(rs.next()){
+                result.add(new Raza(
+                        rs.getInt("id"),
+                        rs.getInt("id_raza_padre"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("velocidad_a_pie"),
+                        rs.getInt("velocidad_nado"),
+                        rs.getInt("velocidad_vuelo"),
+                        rs.getString("ventajas"),
+                        rs.getString("idiomas"),
+                        rs.getString("altura")));
+            }
+        } catch (SQLException e) {
+
         }
 
-        return result;
+        AppController.nuevoRegistro(sql);
+        return result.get(0);
     }
 
     public int getId() {
