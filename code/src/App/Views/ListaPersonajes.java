@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class ListaPersonajes extends View {
 
@@ -32,7 +33,8 @@ public class ListaPersonajes extends View {
         ScrollablePanel panelPersonajes = new ScrollablePanel();
         panelPersonajes.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        for (Personaje p : Personaje.getList())
+        List<Personaje> lst = Personaje.getList();
+        for (Personaje p : lst)
             panelPersonajes.add(new TarjetaPersonaje(p));
 
         // Mostrar el contenido
