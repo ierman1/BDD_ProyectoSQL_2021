@@ -2,11 +2,11 @@ ALTER SEQUENCE razas_id_seq RESTART WITH 1;
 ALTER SEQUENCE personajes_id_seq RESTART WITH 1;
 ALTER SEQUENCE hechizos_id_seq RESTART WITH 1;
 ALTER SEQUENCE clases_id_seq RESTART WITH 1;
-ALTER SEQUENCE packs_inciales_id_seq RESTART WITH 1;
+ALTER SEQUENCE packs_iniciales_id_seq RESTART WITH 1;
 ALTER SEQUENCE objetos_id_seq RESTART WITH 1;
 
 
-truncate table hechizos_aprendidos, hechizos_raza, hechizos_clase, hechizos, objetos_packs_iniciales,clases, razas,packs_inciales, personajes, inventarios, hechizos_aprendidos,objetos_comunes, objetos,packs_inciales, armas, armaduras;
+truncate table hechizos_aprendidos, hechizos_raza, hechizos_clase, hechizos, objetos_packs_iniciales,clases, razas,packs_iniciales, personajes, inventarios, hechizos_aprendidos,objetos_comunes, objetos,packs_iniciales, armas, armaduras;
 INSERT INTO clases (nombre, descripcion, dado_vida, salvacion_1, salvacion_2) VALUES
                                                                                   ('Barbaro', 'Para algunos, su rabia brota de la comunión con espíritus de animales salvajes. Otros recurren a su hirviente reserva de ira frente a un mundo lleno de dolor. Para los bárbaros, la furia es un poder que no sólo les proporciona un frenesí ciego en la batalla, sino también extraordinarios reflejos, resistencia y proezas de fuerza.', 12, 1, 3),
                                                                                   ('Bardo', 'Ya sea un erudito, un poeta o un canalla, un bardo teje su magia a través de sus palabras y su música para inspirar a los aliados, desmoralizar a los enemigos, manipular mentes, crear ilusiones e incluso sanar heridas.', 8, 2, 6),
@@ -75,7 +75,7 @@ INSERT INTO objetos_comunes (id_objeto, efecto) VALUES
                                                     (19, '');
 
 
-INSERT INTO packs_inciales (nombre, id_clase) VALUES
+INSERT INTO packs_iniciales (nombre, id_clase) VALUES
                                                   ('Pack de aventurero', NULL),
                                                   ('Pack del clérigo', 5),
                                                   ('Pack del escriba', 7);

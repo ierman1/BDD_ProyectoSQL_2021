@@ -13,6 +13,8 @@ public class Personaje {
     private static String TABLE_NAME = "personajes";
     private static List<Personaje> LIST;
 
+    private static Personaje nuevoPersonaje = new Personaje(0, 0, 0, "", 0, false, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
     private int id;
 
 
@@ -189,6 +191,14 @@ public class Personaje {
             this.raza = Raza.find(this.idRaza);
 
         return this.raza;
+    }
+
+    public static void setNuevoPersonaje(Personaje nuevoPersonaje) {
+        Personaje.nuevoPersonaje = nuevoPersonaje;
+    }
+
+    public static Personaje getNuevoPersonaje() {
+        return nuevoPersonaje;
     }
 
     public void setNombre(String nombre) {
