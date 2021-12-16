@@ -1,6 +1,8 @@
 package App.Views;
 
 import App.AppController;
+import App.Components.ScrollablePanel;
+import App.Components.TarjetaPersonaje;
 import App.Models.Personaje;
 import App.Popups.AprenderHechizos;
 import App.Popups.ObjetoInventario;
@@ -17,11 +19,6 @@ public class ListaPersonajes extends View {
     }
 
     public JPanel render() {
-        // Panel superior
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setMinimumSize(new Dimension(500, 100));
-        panelSuperior.add(new JLabel("Personajes"));
-
         // Panel botones
         JPanel panelBotones = new JPanel();
         JButton botonCrear = new JButton("Crear personaje");
@@ -29,30 +26,15 @@ public class ListaPersonajes extends View {
         panelBotones.add(botonCrear);
 
         // Panel partido: lista + opciones
-        JList lista = new JList(Personaje.getList().toArray());
-        JScrollPane scrollLista = new JScrollPane();
-        JPanel panelOpciones = new JPanel();
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollLista, panelOpciones);
+        ScrollablePanel panelPersonajes = new ScrollablePanel();
+        panelPersonajes.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        lista.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        lista.setLayoutOrientation(JList.VERTICAL);
-        lista.setVisibleRowCount(-1);
-        scrollLista.setViewportView(lista);
-        scrollLista.setMinimumSize(new Dimension(100, 200));
+        for (Personaje p : Personaje.getList())
+            panelPersonajes.add(new TarjetaPersonaje(p));
 
         // Mostrar el contenido
-        this.panel.add(panelSuperior, BorderLayout.PAGE_START);
-        this.panel.add(splitPane, BorderLayout.CENTER);
+        this.panel.add(panelPersonajes, BorderLayout.CENTER);
         this.panel.add(panelBotones, BorderLayout.PAGE_END);
-
-        // Eventos
-        lista.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                JList list = (JList)evt.getSource();
-                if (evt.getClickCount() == 2)
-                    AppController.infoPersonaje((Personaje) list.getSelectedValue());
-            }
-        });
 
         botonCrear.addActionListener(e -> AppController.crearPersonaje());
 
