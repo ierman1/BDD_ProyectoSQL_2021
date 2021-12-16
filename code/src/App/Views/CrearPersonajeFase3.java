@@ -125,7 +125,7 @@ public class CrearPersonajeFase3 extends View {
                 }
 
                 //falta populate stats
-                taDescripcion.setText(selectedClase.getDescripcion());
+                taDescripcion.setText(selectedClase.getDescripcion().substring(0,Math.min(65,selectedClase.getDescripcion().length())));
                 lblDadoVida.setText(Integer.toString(selectedClase.getDadoVida()));
                 lblDadoSalvacion.setText(Integer.toString(selectedClase.getSalvacion1()));
 

@@ -124,12 +124,22 @@ public class CrearPersonajeFase2 extends View {
         textAreaDescripcion.setMaximumSize(new Dimension(150, 50));
         textAreaDescripcion.setLineWrap(true);
         textAreaDescripcion.setWrapStyleWord(true);
-        Dimension maxArea = new Dimension(250, 100);
+        Dimension maxArea = new Dimension(20, 100);
         textAreaDescripcion.setPreferredSize(maxArea);
         textAreaDescripcion.setMaximumSize(maxArea);
         textAreaDescripcion.setMinimumSize(maxArea);
         textAreaDescripcion.setLineWrap(true);
         textAreaDescripcion.setWrapStyleWord(true);
+
+
+        //fix
+        panel4.setMaximumSize(maxArea);
+
+        panel4.setBounds(0,0,50,50);
+
+
+        lblVentajasValue.setMaximumSize(maxArea);
+        lblIdiomas.setMaximumSize(maxArea);
 
         comboBoxSubRaza.setVisible(false);
         lblSubRaza.setVisible(false);
@@ -173,10 +183,10 @@ public class CrearPersonajeFase2 extends View {
                 }
 
                 //falta populate stats
-                textAreaDescripcion.setText(selectedRaza.getDescripcion());
+                textAreaDescripcion.setText(selectedRaza.getDescripcion().substring(0,Math.min(65,selectedRaza.getDescripcion().length())));
                 lblVelocidadAPie.setText(Integer.toString( selectedRaza.getVelocidadAPie() ));
-                label1.setText(selectedRaza.getIdiomas());
-                lblVentajasValue.setText(selectedRaza.getVentajas());
+                label1.setText(selectedRaza.getIdiomas().substring(0,Math.min(65,selectedRaza.getIdiomas().length())));
+                lblVentajasValue.setText(selectedRaza.getVentajas().substring(0,Math.min(65,selectedRaza.getVentajas().length())));
             }
         });
 
@@ -192,10 +202,10 @@ public class CrearPersonajeFase2 extends View {
                     }
                 }
 
-                textAreaDescripcion.setText(selectedSubRaza.getDescripcion());
+                textAreaDescripcion.setText(selectedSubRaza.getDescripcion().substring(0,Math.min(65,selectedSubRaza.getDescripcion().length())));
                 lblVelocidadAPie.setText(Integer.toString( selectedSubRaza.getVelocidadAPie() ));
-                label1.setText(selectedSubRaza.getIdiomas());
-                lblVentajasValue.setText(selectedRaza.getVentajas());
+                label1.setText(selectedSubRaza.getIdiomas().substring(0,Math.min(65,selectedSubRaza.getIdiomas().length())));
+                lblVentajasValue.setText(selectedSubRaza.getVentajas().substring(0,Math.min(65,selectedSubRaza.getVentajas().length())));
             }
         });
 

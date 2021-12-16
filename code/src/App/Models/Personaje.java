@@ -17,6 +17,7 @@ public class Personaje {
 
     private int id;
 
+    private ArrayList<Objeto> objetosIniciales;
 
 
     private int idClase;
@@ -65,6 +66,23 @@ public class Personaje {
         this.carisma = carisma;
     }
 
+    public static int getMaxId(){
+        String sql = "SELECT max(id) FROM personajes";
+        ResultSet rs = Connector.executeQuery(sql);
+
+        int result = 0;
+
+        try {
+            while(rs.next()){
+                result = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return result;
+    }
+
     public static void insert(Personaje p) {
 
         //Hago parametrized query en vez de normal, más seguro / readable
@@ -104,6 +122,10 @@ public class Personaje {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdClase() {
@@ -272,6 +294,15 @@ public class Personaje {
     public void setRaza(Raza raza) {
         this.raza = raza;
     }
+
+    public ArrayList<Objeto> getObjetosIniciales() {
+        return objetosIniciales;
+    }
+
+    public void setObjetosIniciales(ArrayList<Objeto> objetosIniciales) {
+        this.objetosIniciales = objetosIniciales;
+    }
+
     public void updatePersonaje(){
         String SQL = "UPDATE " +TABLE_NAME+
                 " SET "+

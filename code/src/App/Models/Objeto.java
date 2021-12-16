@@ -108,6 +108,81 @@ public class Objeto {
 
     }
 
+    /**
+     * Esta funcion devuelve lista de nombres de items de un pack de aventurero.
+     * @return
+     */
+    public static List<Objeto> getObjectsFromPackAventurero() {
+        ResultSet rs = Connector.executeQuery("select o.* from objetos_packs_iniciales opi " +
+                        "    join packs_iniciales packs_ini on (packs_ini.id = opi.id_pack_inicial) " +
+                        "    join objetos o on (o.id = opi.id_objeto) " +
+                        "    where packs_ini.nombre = 'Pack de aventurero'");
+        List<Objeto> result = new ArrayList<>();
+
+        try {
+            while(rs.next()){
+                result.add(new Objeto(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("peso"),
+                        rs.getString("volumen"),
+                        rs.getInt("valor"),
+                        rs.getBoolean("equipable")));
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return result;
+
+    }
+
+    public static String getPackFromClase(String nombre_clase){
+        ResultSet rs = Connector.executeQuery("select ini.nombre from packs_iniciales ini " +
+                "join clases c on (ini.id_clase = c.id) " +
+                "where c.nombre ='" + nombre_clase + "'");
+        String result = null;
+
+        try {
+            while(rs.next()){
+                result= rs.getString("nombre");
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return result;
+    }
+
+    public static List<Objeto> getObjectsFromPackClase(String nombre_clase) {
+        ResultSet rs = Connector.executeQuery("select o.* from objetos_packs_iniciales opi " +
+                "join packs_iniciales packs_ini on (packs_ini.id = opi.id_pack_inicial) " +
+                "join clases c on (c.id = packs_ini.id_clase) " +
+                "join objetos o on (o.id = opi.id_objeto) " +
+                "where c.nombre = '" + nombre_clase + "'");
+        List<Objeto> result = new ArrayList<>();
+
+        try {
+            while(rs.next()){
+                result.add(new Objeto(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getInt("peso"),
+                        rs.getString("volumen"),
+                        rs.getInt("valor"),
+                        rs.getBoolean("equipable")));
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return result;
+
+    }
+
+
     public static Objeto getObjetoById(int id){
         String sql = "SELECT "+TABLE_NAME_DAD+".* FROM "+TABLE_NAME_DAD+" WHERE ID = "+id+";";
         List<Objeto> result = new ArrayList<>();
