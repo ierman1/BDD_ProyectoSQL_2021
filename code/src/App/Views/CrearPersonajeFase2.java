@@ -1,6 +1,7 @@
 package App.Views;
 
 import App.AppController;
+import App.Models.Personaje;
 import App.Models.Raza;
 
 import javax.swing.*;
@@ -20,20 +21,22 @@ public class CrearPersonajeFase2 extends View {
     private Raza selectedSubRaza;
     private ArrayList<Raza> razaList = (ArrayList<Raza>) Raza.getList();
 
+    public JComboBox ComboBoxRaza;
+    public JComboBox comboBoxSubRaza;
+    private JButton btnSiguiente;
+    private JButton btnVolver;
+    private JTextArea textAreaDescripcion;
+    private JLabel lblRaza;
+    private JLabel lblSubRaza;
+    private JLabel lblDesc;
+    private JLabel lblIdiomas;
+    private JLabel lblVelocidadAPie;
+    private JLabel lblVentajasTitle;
+    private JLabel lblVentajasValue;
+
     public JPanel render() {
 
-        JComboBox ComboBoxRaza;
-        JComboBox comboBoxSubRaza;
-        JButton btnSiguiente;
-        JButton btnVolver;
-        JTextArea textAreaDescripcion;
-        JLabel lblRaza;
-        JLabel lblSubRaza;
-        JLabel lblDesc;
-        JLabel lblIdiomas;
-        JLabel lblVelocidadAPie;
-        JLabel lblVentajasTitle;
-        JLabel lblVentajasValue;
+
 
         // Mostrar el contenido
 
@@ -114,10 +117,19 @@ public class CrearPersonajeFase2 extends View {
         lblVentajasValue.setText("");
         panel4.add(lblVentajasValue, new com.intellij.uiDesigner.core.GridConstraints(8, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
-
-
         //codigo mio
 
+
+
+        textAreaDescripcion.setMaximumSize(new Dimension(150, 50));
+        textAreaDescripcion.setLineWrap(true);
+        textAreaDescripcion.setWrapStyleWord(true);
+        Dimension maxArea = new Dimension(250, 100);
+        textAreaDescripcion.setPreferredSize(maxArea);
+        textAreaDescripcion.setMaximumSize(maxArea);
+        textAreaDescripcion.setMinimumSize(maxArea);
+        textAreaDescripcion.setLineWrap(true);
+        textAreaDescripcion.setWrapStyleWord(true);
 
         comboBoxSubRaza.setVisible(false);
         lblSubRaza.setVisible(false);
@@ -138,7 +150,7 @@ public class CrearPersonajeFase2 extends View {
 
 
                 comboBoxSubRaza.removeAllItems();
-
+                selectedSubRaza = null;
 
                 for (Raza r : razaList ) {
                     if (r.getNombre().equals(rName)) {
@@ -189,13 +201,63 @@ public class CrearPersonajeFase2 extends View {
 
 
 
+
+
+        loadCache();
+
         // Eventos
-        btnVolver.addActionListener(e -> AppController.crearPersonaje());
-        btnSiguiente.addActionListener(e -> AppController.crearPersonajeFase3());
+        btnVolver.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonaje();
+        });
+        btnSiguiente.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase3();
+        });
 
 
 
         return this.panel;
+    }
+
+    private void saveCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        if(selectedSubRaza != null){
+            p.setRaza(selectedSubRaza);
+        }else{
+            p.setRaza(selectedRaza);
+        }
+
+    }
+
+    private void loadCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        Raza r = p.getRaza();
+        if(r == null) return;
+        if(r.getId() == 0) return;
+
+        if(r.getIdRazaPadre() == 0){
+            //es de una raza sin subrazas
+            ComboBoxRaza.setSelectedItem(r.getNombre());
+        }else{
+            //tiene subraza, asi que seteo combobox padre y hijo
+
+            for (Raza raza : razaList ) {
+                if (raza.getId() == r.getIdRazaPadre()) {
+                    ComboBoxRaza.setSelectedItem(raza.getNombre());
+                }
+            }
+
+            comboBoxSubRaza.setSelectedItem(r.getNombre());
+        }
+
+
     }
 
 }

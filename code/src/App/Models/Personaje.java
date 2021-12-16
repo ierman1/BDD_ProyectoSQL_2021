@@ -2,14 +2,13 @@ package App.Models;
 
 import App.Connector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Personaje {
+
+    public static Personaje newPesonaje = new Personaje(0,0,0,"",0,false,"",0,0,0,0,0,0,0,0,0,0,0,0);
 
     private static String TABLE_NAME = "personajes";
     private static List<Personaje> LIST;
@@ -62,6 +61,43 @@ public class Personaje {
         this.inteligencia = inteligencia;
         this.sabiduria = sabiduria;
         this.carisma = carisma;
+    }
+
+    public static void insert(Personaje p) {
+
+        //Hago parametrized query en vez de normal, más seguro / readable
+        String sql = "INSERT into " + TABLE_NAME + " (id_clase,id_raza,nombre,nivel,esta_inspirado,trasfondo,edad,altura,peso,vida_max,vida_actual,oro,fuerza,destreza,constitucion,inteligencia,sabiduria,carisma) VALUES " +
+                "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        Connection c = Connector.getConnection();
+        PreparedStatement  s = null;
+        try {
+            s = c.prepareStatement(sql);
+            s.setInt(1, p.getClase().getId());
+            s.setInt(2, 1); //p.getRaza().getId()
+            s.setString(3, p.getNombre());
+            s.setInt(4, p.getNivel());
+            s.setBoolean(5, p.isEstaInspirado());
+            s.setString(6, p.getTrasfondo());
+            s.setInt(7, p.getEdad());
+            s.setInt(8, p.getAltura());
+            s.setInt(9, p.getPeso());
+            s.setInt(10, p.getVida_max());
+            s.setInt(11, p.getVida_actual());
+            s.setInt(12, p.getOro());
+
+            s.setInt(13, p.getFuerza());
+            s.setInt(14, p.getDestreza());
+            s.setInt(15, p.getConstitucion());
+            s.setInt(16, p.getInteligencia());
+            s.setInt(17, p.getSabiduria());
+            s.setInt(18, p.getCarisma());
+
+            s.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public int getId() {

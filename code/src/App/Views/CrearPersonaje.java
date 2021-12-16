@@ -16,27 +16,29 @@ import java.io.IOException;
 
 public class CrearPersonaje extends View {
 
-    private Personaje personaje;
+    public Personaje nuevoPersonaje;
 
     public CrearPersonaje(JFrame frame) {
         super(frame, "Crear personaje");
     }
 
+    private JPanel panelFormulario;
+    private JPanel panelAvatar;
+    private JPanel panelCampos;
+    private JPanel panelTextArea;
+    private JPanel panelBotones;
+    private JButton btnVolver;
+    private JButton btnSiguiente;
+    private JLabel lblTrasfondo;
+    public JTextArea taTrasfondo;
+    private JLabel lblNombre;
+    public JTextField tfNombre;
+    private JLabel lblEdad;
+    public JTextField tfEdad;
+    public JLabel lblAvatar;
+
     public JPanel render() {
-        JPanel panelFormulario;
-        JPanel panelAvatar;
-        JPanel panelCampos;
-        JPanel panelTextArea;
-        JPanel panelBotones;
-        JButton btnVolver;
-        JButton btnSiguiente;
-        JLabel lblTrasfondo;
-        JTextArea taTrasfondo;
-        JLabel lblNombre;
-        JTextField tfNombre;
-        JLabel lblEdad;
-        JTextField tfEdad;
-        JLabel lblAvatar;
+
 
         this.panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         this.panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
@@ -46,7 +48,9 @@ public class CrearPersonaje extends View {
         panelAvatar = new JPanel();
         panelAvatar.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelFormulario.add(panelAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        lblAvatar = new JLabel(new ImageIcon(this.loadImage("C:\\Users\\Guillem\\Desktop\\BDD_ProyectoSQL_2021\\code\\img\\avatar.png")), SwingConstants.CENTER);
+        //lblAvatar = new JLabel(new ImageIcon(this.loadImage("C:\\Users\\Guillem\\Desktop\\BDD_ProyectoSQL_2021\\code\\img\\avatar.png")), SwingConstants.CENTER);
+        String placeholderAvatarPath = this.getClass().getClassLoader().getResource("avatar.png").getPath();
+        lblAvatar = new JLabel(new ImageIcon(this.loadImage(placeholderAvatarPath)), SwingConstants.CENTER);
         lblAvatar.setBorder(BorderFactory.createEmptyBorder(0,50,0,0));
         lblAvatar.setText("");
         panelAvatar.add(lblAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -84,9 +88,15 @@ public class CrearPersonaje extends View {
         btnSiguiente.setText("Siguiente");
         panelBotones.add(btnSiguiente, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
 
+        // Codigo mio
+        loadCache();
+
         // Eventos
         btnVolver.addActionListener(e -> AppController.listaPersonajes());
-        btnSiguiente.addActionListener(e -> AppController.crearPersonajeFase2());
+        btnSiguiente.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase2();
+        });
 
         // Cambiar el avatar
         lblAvatar.addMouseListener(new MouseAdapter()
@@ -110,6 +120,27 @@ public class CrearPersonaje extends View {
         });
 
         return panel;
+    }
+
+    private void saveCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        p.setNombre(tfNombre.getText());
+        p.setEdad(Integer.parseInt(tfEdad.getText()));
+        p.setTrasfondo(taTrasfondo.getText());
+    }
+
+    private void loadCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        tfNombre.setText(p.getNombre());
+        tfEdad.setText(String.valueOf(p.getEdad()));
+        taTrasfondo.setText(p.getTrasfondo());
+
     }
 
     private Image loadImage(String path) {

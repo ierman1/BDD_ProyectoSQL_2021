@@ -9,7 +9,7 @@ import javax.swing.*;
 public class AppController {
 
     private static AppController app;
-    private View currentView;
+    private static View currentView;
     private JFrame appFrame;
 
     private AppController() {
@@ -52,13 +52,13 @@ public class AppController {
 
 
     public static void crearPersonaje() {
-        AppController.app.swapWindow(new CrearPersonaje(AppController.app.appFrame));
+
+        CrearPersonaje v = new CrearPersonaje(AppController.app.appFrame);
+        //v.nuevoPersonaje = p;
+        AppController.app.swapWindow(v);
     }
 
     public static void crearPersonajeFase2() {
-        //Botón que te lleva a la vista CrearPersonaje2
-
-        //guardar en Personaje p los datos
 
         AppController.app.swapWindow(new CrearPersonajeFase2(AppController.app.appFrame));
     }

@@ -2,6 +2,7 @@ package App.Views;
 
 import App.AppController;
 import App.Models.Clase;
+import App.Models.Personaje;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -17,19 +18,20 @@ public class CrearPersonajeFase5 extends View {
         super(frame, "Crear personaje - Atributos");
     }
 
+    private JLabel lblFuerza;
+    private JLabel lblDestreza;
+    private JLabel lblConstitucion;
+    private JLabel lblInteligencia;
+    private JLabel lblSabiduria;
+    private JLabel lblCarisma;
+    private JButton tirarDadosButton;
 
     public JPanel render() {
 
         JButton btnVolver;
         JButton btnSiguiente;
         JLabel lblAtributosTitle;
-        JLabel lblFuerza;
-        JLabel lblDestreza;
-        JLabel lblConstitucion;
-        JLabel lblInteligencia;
-        JLabel lblSabiduria;
-        JLabel lblCarisma;
-        JButton tirarDadosButton;
+
 
         // Mostrar el contenido
         JPanel panel1 = this.panel;
@@ -133,16 +135,50 @@ public class CrearPersonajeFase5 extends View {
            }
         });
 
-
+        
+        loadCache();
 
         // Eventos
-        btnVolver.addActionListener(e -> AppController.crearPersonajeFase4());
-        btnSiguiente.addActionListener(e -> AppController.crearPersonajeGuardar());
+        btnVolver.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase4();
+        });
+        btnSiguiente.addActionListener(e -> {
+            saveCache();
+            Personaje.insert(Personaje.newPesonaje);
+            AppController.crearPersonajeGuardar();
+        });
 
 
 
 
         return this.panel;
+    }
+
+    private void saveCache() {
+
+        Personaje p = Personaje.newPesonaje;
+
+        p.setFuerza(Integer.parseInt(lblFuerza.getText()));
+        p.setDestreza(Integer.parseInt(lblDestreza.getText()));
+        p.setConstitucion(Integer.parseInt(lblConstitucion.getText()));
+        p.setInteligencia(Integer.parseInt(lblInteligencia.getText()));
+        p.setSabiduria(Integer.parseInt(lblSabiduria.getText()));
+        p.setCarisma(Integer.parseInt(lblCarisma.getText()));
+
+    }
+
+    private void loadCache() {
+
+        Personaje p = Personaje.newPesonaje;
+
+        lblFuerza.setText(Integer.toString(p.getFuerza()));
+        lblDestreza.setText(Integer.toString(p.getDestreza()));
+        lblConstitucion.setText(Integer.toString(p.getConstitucion()));
+        lblInteligencia.setText(Integer.toString(p.getInteligencia()));
+        lblSabiduria.setText(Integer.toString(p.getSabiduria()));
+        lblCarisma.setText(Integer.toString(p.getCarisma()));
+
     }
 
 }

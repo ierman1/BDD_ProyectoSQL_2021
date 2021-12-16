@@ -2,6 +2,7 @@ package App.Views;
 
 import App.AppController;
 import App.Models.Clase;
+import App.Models.Personaje;
 import App.Models.Raza;
 
 import javax.swing.*;
@@ -20,11 +21,13 @@ public class CrearPersonajeFase3 extends View {
     private Clase selectedClase;
     private ArrayList<Clase> claseList = (ArrayList<Clase>) Clase.getList();
 
+    private JComboBox comboBoxClass;
+
     public JPanel render() {
 
         JButton btnSiguiente;
         JButton btnVolver;
-        JComboBox comboBoxClass;
+
         JTextArea taDescripcion;
         JLabel lblDadoVida;
         JLabel lblDadoSalvacion;
@@ -70,10 +73,10 @@ public class CrearPersonajeFase3 extends View {
         label4.setText("Dado salvación");
         panel5.add(label4, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         lblDadoVida = new JLabel();
-        lblDadoVida.setText("Label");
+        lblDadoVida.setText("");
         panel5.add(lblDadoVida, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         lblDadoSalvacion = new JLabel();
-        lblDadoSalvacion.setText("Label");
+        lblDadoSalvacion.setText("");
         panel5.add(lblDadoSalvacion, new com.intellij.uiDesigner.core.GridConstraints(0, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
@@ -84,7 +87,7 @@ public class CrearPersonajeFase3 extends View {
         final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
         panel6.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         lblHechizosDeClase = new JLabel();
-        lblHechizosDeClase.setText("Label");
+        lblHechizosDeClase.setText("");
         panel2.add(lblHechizosDeClase, new com.intellij.uiDesigner.core.GridConstraints(6, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer5 = new com.intellij.uiDesigner.core.Spacer();
         panel2.add(spacer5, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -106,7 +109,7 @@ public class CrearPersonajeFase3 extends View {
         //codigo mio
         comboBoxClass.setSelectedIndex(-1);
 
-        for (Clase c : claseList ){
+        for (Clase c : claseList) {
             comboBoxClass.addItem(c.getNombre());
         }
 
@@ -115,7 +118,7 @@ public class CrearPersonajeFase3 extends View {
             public void actionPerformed(ActionEvent e) {
                 String cName = (String) comboBoxClass.getSelectedItem();
 
-                for (Clase c : claseList ) {
+                for (Clase c : claseList) {
                     if (c.getNombre().equals(cName)) {
                         selectedClase = c;
                     }
@@ -123,8 +126,8 @@ public class CrearPersonajeFase3 extends View {
 
                 //falta populate stats
                 taDescripcion.setText(selectedClase.getDescripcion());
-                lblDadoVida.setText(Integer.toString( selectedClase.getDadoVida()));
-                lblDadoSalvacion.setText(Integer.toString( selectedClase.getSalvacion1() ));
+                lblDadoVida.setText(Integer.toString(selectedClase.getDadoVida()));
+                lblDadoSalvacion.setText(Integer.toString(selectedClase.getSalvacion1()));
 
                 lblHechizosDeClase.setText(selectedClase.getHechizosDeClase(selectedClase.getNombre()));
 
@@ -132,16 +135,42 @@ public class CrearPersonajeFase3 extends View {
         });
 
 
+        loadCache();
 
         // Eventos
-        btnVolver.addActionListener(e -> AppController.crearPersonajeFase2());
-        btnSiguiente.addActionListener(e -> AppController.crearPersonajeFase4());
-
-
+        btnVolver.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase2();
+        });
+        btnSiguiente.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase4();
+        });
 
 
         return this.panel;
     }
 
+    private void saveCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        if (selectedClase != null) {
+            p.setClase(selectedClase);
+        }
+    }
+
+    private void loadCache() {
+
+        //cojo el personaje CACHE
+        Personaje p = Personaje.newPesonaje;
+
+        Clase c = p.getClase();
+        if (c == null) return;
+        if (c.getId() == 0) return;
+
+        comboBoxClass.setSelectedItem(c.getNombre());
+    }
 }
 

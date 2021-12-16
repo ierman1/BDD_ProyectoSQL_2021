@@ -45,17 +45,31 @@ public class CrearPersonajeFase4 extends View {
 
 
         //codigo mio
+        
 
-
-
+        
+        loadCache();
+        
         // Eventos
-        btnVolver.addActionListener(e -> AppController.crearPersonajeFase3());
-        btnSiguiente.addActionListener(e -> AppController.crearPersonajeFase5());
+        btnVolver.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase3();
+        });
+        btnSiguiente.addActionListener(e -> {
+            saveCache();
+            AppController.crearPersonajeFase5();
+        });
 
-
+    
 
 
         return this.panel;
+    }
+
+    private void loadCache() {
+    }
+
+    private void saveCache() {
     }
 
 }
