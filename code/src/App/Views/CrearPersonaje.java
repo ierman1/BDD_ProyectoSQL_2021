@@ -49,11 +49,11 @@ public class CrearPersonaje extends View {
         panelAvatar.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelFormulario.add(panelAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         //lblAvatar = new JLabel(new ImageIcon(this.loadImage("C:\\Users\\Guillem\\Desktop\\BDD_ProyectoSQL_2021\\code\\img\\avatar.png")), SwingConstants.CENTER);
-        String placeholderAvatarPath = this.getClass().getClassLoader().getResource("avatar.png").getPath();
-        lblAvatar = new JLabel(new ImageIcon(this.loadImage(placeholderAvatarPath)), SwingConstants.CENTER);
-        lblAvatar.setBorder(BorderFactory.createEmptyBorder(0,50,0,0));
-        lblAvatar.setText("");
-        panelAvatar.add(lblAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        //String placeholderAvatarPath = this.getClass().getClassLoader().getResource("avatar.png").getPath();
+        //lblAvatar = new JLabel(new ImageIcon(this.loadImage(placeholderAvatarPath)), SwingConstants.CENTER);
+        //lblAvatar.setBorder(BorderFactory.createEmptyBorder(0,50,0,0));
+        //lblAvatar.setText("");
+        //panelAvatar.add(lblAvatar, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panelCampos = new JPanel();
         panelCampos.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelFormulario.add(panelCampos, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -109,7 +109,7 @@ public class CrearPersonaje extends View {
         });
 
         // Cambiar el avatar
-        lblAvatar.addMouseListener(new MouseAdapter()
+        /*lblAvatar.addMouseListener(new MouseAdapter()
         {
             public void mouseClicked(MouseEvent e)
             {
@@ -127,7 +127,7 @@ public class CrearPersonaje extends View {
                     //AIXO ENCARA NO FUNCIONA, NO SOBREEESCRIU LA IMATGE
                 }
             }
-        });
+        });*/
 
         return panel;
     }
@@ -153,7 +153,7 @@ public class CrearPersonaje extends View {
 
     }
 
-    private Image loadImage(String path) {
+    /*private Image loadImage(String path) {
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File(path));
@@ -165,5 +165,5 @@ public class CrearPersonaje extends View {
 
         return dimg;
     }
-
+*/
 }

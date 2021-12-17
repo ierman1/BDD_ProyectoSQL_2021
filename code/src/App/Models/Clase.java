@@ -116,6 +116,9 @@ public class Clase {
     }
 
     public static Clase find(int id) {
+        if(id == 0){
+            return null;
+        }
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
         List<Clase> result = new ArrayList<>();
 

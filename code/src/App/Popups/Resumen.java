@@ -42,7 +42,7 @@ public class Resumen {
                         " (select pj.id from personajes pj  where pj.id = ha.id_personaje) as idpj " +
                         " from hechizos_aprendidos ha "+
                         "           group by nombre, idpj  " +
-                        "                order by 1 " +
+                        "                order by 1 desc" +
                         "                limit 1";
 
         JLabel lblBigSpellCaster = new JLabel();
@@ -66,7 +66,7 @@ public class Resumen {
                 "select sum(pj.oro) as oro, cl.nombre as nombre " +
                         "from personajes pj join clases cl on pj.id_clase = cl.id " +
                         "group by 2 " +
-                        "order by oro " +
+                        "order by oro desc " +
                         "limit 1";
         String nameBounty = "";
         int oro = 0;
@@ -90,7 +90,7 @@ public class Resumen {
                         "                         where pj.id_raza = razas.id)  as nombre  " +
                         "                         from personajes pj " +
                         "                          group by 2  " +
-                        "                          order by oro  " +
+                        "                          order by oro  desc " +
                         "                          limit 1";
 
         String nameRaza = "";
@@ -114,7 +114,7 @@ public class Resumen {
                 "select count (ha.id_hechizo) as times, (select nombre from hechizos h where h.id= ha.id_hechizo) as nombre " +
                         "from hechizos_aprendidos ha " +
                         "group by 2 " +
-                        "order by 1 " +
+                        "order by 1 desc " +
                         "limit 1";
         String spell = "";
         int learn = 0;
@@ -140,7 +140,7 @@ public class Resumen {
                         "                                                 where pj.id = inv.id_personaje) as id " +
                         "                                                 from inventarios inv " +
                         "                                                  group by 2,3 " +
-                        "                                                  order by qt  " +
+                        "                                                  order by qt  desc " +
                         "                                                  limit 1 ;";
         String bigBagRes = "";
         int items = 0;

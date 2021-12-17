@@ -109,6 +109,9 @@ public class Raza {
     }
     
     public static Raza find(int id) {
+        if(id == 0){
+            return null;
+        }
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
         List<Raza> result = new ArrayList<>();
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Personaje {
 
-    public static Personaje newPesonaje = new Personaje(0,0,0,"",0,false,"",0,0,0,0,0,0,0,0,0,0,0,0);
+    public static Personaje newPesonaje = new Personaje(0,0,0,"",1,false,"",0,0,0,0,0,0,0,0,0,0,0,0);
 
     private static String TABLE_NAME = "personajes";
     private static List<Personaje> LIST;
@@ -96,7 +96,7 @@ public class Personaje {
         try {
             s = c.prepareStatement(sql);
             s.setInt(1, p.getClase().getId());
-            s.setInt(2, 1); //p.getRaza().getId()
+            s.setInt(2, p.getRaza().getId());
             s.setString(3, p.getNombre());
             s.setInt(4, p.getNivel());
             s.setBoolean(5, p.isEstaInspirado());
