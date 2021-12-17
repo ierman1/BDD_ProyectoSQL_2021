@@ -38,11 +38,12 @@ public class Resumen {
         });
 
         String bigSpellcaster =
-                "select count (ha.*) as num, pj.nombre as nombre " +
-                "from personajes pj join hechizos_aprendidos ha on pj.id = ha.id_personaje " +
-                "group by pj.nombre " +
-                "order by 1 " +
-                "limit 1 ";
+                "select count (ha.*) as num, (select nombre from personajes where id = ha.id_personaje) as nombre, " +
+                        " (select pj.id from personajes pj  where pj.id = ha.id_personaje) as idpj " +
+                        " from hechizos_aprendidos ha "+
+                        "           group by nombre, idpj  " +
+                        "                order by 1 " +
+                        "                limit 1";
 
         JLabel lblBigSpellCaster = new JLabel();
         ResultSet rs = Connector.executeQuery(bigSpellcaster);
@@ -85,11 +86,13 @@ public class Resumen {
         AppController.nuevoRegistro(bigBountyHunters);
 
         String richRaze =
-                "select sum(pj.oro) as oro, rz.nombre as nombre " +
-                        "from personajes pj join razas rz on pj.id_raza = rz.id " +
-                        "group by 2 " +
-                        "order by oro " +
-                        "limit 1";
+                "select sum(pj.oro) as oro, (select nombre from razas " +
+                        "                         where pj.id_raza = razas.id)  as nombre  " +
+                        "                         from personajes pj " +
+                        "                          group by 2  " +
+                        "                          order by oro  " +
+                        "                          limit 1";
+
         String nameRaza = "";
         int oroRaza = 0;
 
@@ -108,8 +111,8 @@ public class Resumen {
         AppController.nuevoRegistro(richRaze);
 
         String commonSpell =
-                "select count (ha.id_hechizo) as times, h.nombre as nombre " +
-                        "from hechizos_aprendidos ha join hechizos h on h.id= ha.id_hechizo " +
+                "select count (ha.id_hechizo) as times, (select nombre from hechizos h where h.id= ha.id_hechizo) as nombre " +
+                        "from hechizos_aprendidos ha " +
                         "group by 2 " +
                         "order by 1 " +
                         "limit 1";
@@ -130,11 +133,38 @@ public class Resumen {
 
         AppController.nuevoRegistro(commonSpell);
 
+
+        String bigBag =
+                "select count(inv.*) as qt, (select pj.nombre from personajes pj " +
+                        "                                                 where pj.id = inv.id_personaje) as nombre, (select pj.id from personajes pj " +
+                        "                                                 where pj.id = inv.id_personaje) as id " +
+                        "                                                 from inventarios inv " +
+                        "                                                  group by 2,3 " +
+                        "                                                  order by qt  " +
+                        "                                                  limit 1 ;";
+        String bigBagRes = "";
+        int items = 0;
+
+        JLabel lblBigBag = new JLabel();
+        rs = Connector.executeQuery(bigBag);
+        try {
+            while(rs.next()){
+                items = rs.getInt("qt");
+                bigBagRes = rs.getString("nombre");
+            }
+        } catch (SQLException e) {
+
+        }
+        lblBigBag.setText("El personaje con los bolsillos mas llenos es "+bigBagRes+" con "+items+" items en la bolsa");
+
+        AppController.nuevoRegistro(bigBag);
+
+
         panelRaiz.add(lblBigSpellCaster);
         panelRaiz.add(lblBigBountyHunter);
         panelRaiz.add(lblRazeBounty);
         panelRaiz.add(lblCommonSpell);
-
+        panelRaiz.add(lblBigBag);
     }
 
 }
