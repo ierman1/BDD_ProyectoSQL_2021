@@ -49,6 +49,32 @@ public class ItemInventario {
         return result;
     }
 
+    public static void removeItemFromInv(Objeto o, Personaje p, int cantidad){
+        String sql = " Select * from inventarios where id_objeto = "+o.getId()+" and id_personaje =  "+p.getId();
+
+        ResultSet rs = Connector.executeQuery(sql);
+        ItemInventario item = null;
+        try {
+            while(rs.next()){
+                item = new ItemInventario(
+                        rs.getInt("cantidad"),
+                        Objeto.getObjetoById(rs.getInt("id_objeto")), p);
+
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        if(item.cantidad > cantidad){
+            //update
+            sql = "update inventarios set cantidad = "+(item.cantidad - cantidad)+ " where id_objeto = "+o.getId()+" and id_personaje =  "+p.getId();
+        }else{
+            sql = "delete from inventarios where id_objeto = "+o.getId()+" and id_personaje =  "+p.getId();
+        }
+        Connector.executeUpdate(sql);
+        AppController.nuevoRegistro(sql);
+    }
+
     public static void addItemToInv(Objeto o, Personaje p, int cantidad){
         String sql = " INSERT INTO INVENTARIOS (id_personaje, id_objeto, cantidad) " +
                 "        VALUES ("+p.getId()+", "+o.getId()+", "+cantidad+") " +

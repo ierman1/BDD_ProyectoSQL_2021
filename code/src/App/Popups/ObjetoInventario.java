@@ -37,6 +37,7 @@ public class ObjetoInventario {
         JList lstObjetos;
         JTextField tfCantidad;
         JButton btnAnadir;
+        JButton btnQuitar;
         JLabel lblCantidad;
         JPanel panelDerecha;
         JPanel panelIzquierda;
@@ -82,6 +83,29 @@ public class ObjetoInventario {
 
         btnAnadir.setText("Anadir");
         panelDerecha.add(btnAnadir, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+
+        btnQuitar = new JButton();
+
+        btnQuitar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Objeto o = (Objeto) lstObjetos.getSelectedValue();
+                String qty = tfCantidad.getText();
+                ItemInventario.removeItemFromInv(o, p, Integer.parseInt(qty));
+                AppController.inventarioPersonaje(p);
+                ObjetoInventario.up = false;
+                frame.dispose();
+                ObjetoInventario.up = false;
+
+                Popup.showOk("Objeto quitado", "Se ha quitado " + o.getNombre() + " x" + qty);
+            }
+        });
+
+        btnQuitar.setText("Quitar");
+        panelDerecha.add(btnQuitar, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+
+
+
 
         frame.add(panelRaiz);
     }
